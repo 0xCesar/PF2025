@@ -1,0 +1,48 @@
+.about-container{
+    margin-top: 20vh;
+    padding-inline: 2.5vw;
+    width: 95vw;
+    display : flex;
+    justify-content : space-between;
+}
+
+.about-info{
+    width: calc((95vw / 12)*5);
+    text-align: end;
+  }
+
+.about-info h3{
+    font-size : 2.5rem;
+    width: calc((95vw / 12)*4);
+}
+
+
+
+
+.about-image{
+    width: calc((95vw / 12)*6);
+    height: 50vh;
+
+    position: relative;
+    display : flex;
+    justify-content : space-between;
+}
+.about-image-1{
+    width: calc((95vw / 12)*3);
+    position: relative;
+
+}
+.about-image-1 img{
+    height : 40vh;
+}
+.about-image-1 p {
+    position : absolute;
+    bottom : 0;
+}
+
+.about-image-2{
+    width: calc(((95vw / 12)*3) - 10px);
+    position: relative;
+    
+    height: 30vh;
+}
