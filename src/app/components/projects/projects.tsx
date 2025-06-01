@@ -64,7 +64,7 @@ export default function Projects() {
     };
     
     useEffect(() => {
-      const handleWheel = (e) => {
+      const handleWheel = (e: WheelEvent) => {
         if (e.deltaY > 0) {
           nextProjet();
         } else if (e.deltaY < 0) {
@@ -72,7 +72,7 @@ export default function Projects() {
         }
       };
   
-      const handleKeyDown = (e) => {
+      const handleKeyDown = (e: KeyboardEvent) => {
         if (e.key === "ArrowDown") {
          prevProjet();
         } else if (e.key === "ArrowUp") {
