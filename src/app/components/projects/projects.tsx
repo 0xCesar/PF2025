@@ -63,13 +63,27 @@ export default function Projects() {
       });
     };
     
+    let isScrolling = false; 
+    let wheelTimeout: ReturnType<typeof setTimeout>;
+
     useEffect(() => {
       const handleWheel = (e: WheelEvent) => {
+        e.preventDefault();
+
+        if (isScrolling) return; 
+        isScrolling = true;
+
         if (e.deltaY > 0) {
           nextProjet();
         } else if (e.deltaY < 0) {
           prevProjet();
         }
+
+        clearTimeout(wheelTimeout);
+        wheelTimeout = setTimeout(() => {
+          console.log('Fin du wheel event');
+          isScrolling = false; // Libère le scroll
+        }, 800); // durée estimée de l'animation
       };
   
       const handleKeyDown = (e: KeyboardEvent) => {
@@ -80,7 +94,7 @@ export default function Projects() {
         }
       };
 
-      window.addEventListener("wheel", handleWheel);
+      window.addEventListener("wheel", handleWheel,  { passive: false });
       window.addEventListener("keydown", handleKeyDown);
 
       return () => {
