@@ -61,16 +61,15 @@ export default function Cursor() {
       timeline.to(cursorRef.current, {
         width: 30,
         height: 30,
-        backgroundColor: 'rgba(255, 0, 0, 0.7)',
+        backgroundColor: 'rgba(0, 0, 0, 0.7)',
         border: 'none',
         duration: 0.2,
         ease: 'power2.out',
       });
     } else if (cursorState === 'hover-project') {
       timeline.to(cursorRef.current, {
-        width: 60,
-        height: 60,
-        backgroundColor: 'transparent',
+        width: 75,
+        height: 75,
         border: '2px solid white',
         duration: 0.2,
         ease: 'power2.out',
