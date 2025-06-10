@@ -1,5 +1,5 @@
 .about-container{
-    margin-top: 20vh;
+    margin-top: 10vh;
     padding-inline: 2.5vw;
     width: 95vw;
     display : flex;
@@ -17,8 +17,10 @@
   }
 
 .about-info h3{
-    font-size : 2.5rem;
-    width: calc((95vw / 12)*4);
+       font-size: 3rem;
+    text-transform: uppercase;
+    font-weight: bold;
+
 }
 
 .about-info p{

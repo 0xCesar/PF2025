@@ -1,0 +1,17 @@
+.labs-container{
+    margin-top: 10vh;
+    padding-inline: 2.5vw;
+    width: 95vw;
+    display : flex;
+    justify-content : space-between;
+    font-family: var(--font-poppins), sans-serif;
+}
+.labs-container .labs-title{
+    font-size: 3rem;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+.labs-container .labs-text{
+    width: calc((95vw / 12)*4.5);
+    margin-top: 1.2rem;
+}
