@@ -2,12 +2,16 @@
 
 import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
+import { usePathname } from 'next/navigation';
 
 export default function Cursor() {
   const [cursorState, setCursorState] = useState<'default' | 'hover-link' | 'hover-project'>('default');
   const cursorRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLSpanElement>(null);
   const haloRef = useRef<HTMLDivElement>(null);
+
+  const pathname = usePathname(); 
+
 
   useEffect(() => {
     const moveCursor = (e: MouseEvent) => {
@@ -49,7 +53,7 @@ export default function Cursor() {
         el.removeEventListener('mouseleave', handleMouseLeave);
       });
     };
-  }, []);
+  }, );
 
   // Animate style changes based on cursor state
   useEffect(() => {

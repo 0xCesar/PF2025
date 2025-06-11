@@ -1,0 +1,8 @@
+.previewVideo{
+        width: calc((95vw / 12) * 6);
+    height: auto;
+}
+.labs-text-preview{
+    display: flex;
+    justify-content: space-between;
+}
