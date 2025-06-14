@@ -4,6 +4,7 @@
 import React, {useState, useRef, useEffect, useCallback} from "react";
 import './projects.css';
 import Image from 'next/image'
+import Link from 'next/link';
 
 const projectsToBeShown:{
     title: string;
@@ -13,19 +14,15 @@ const projectsToBeShown:{
   }[]= [
     {
       title: "Canette 3D",
-      slug: "Canette3D",
+      slug: "canette3D",
       ref: "canette",
     },
     {
     title: "Immersive Gallery",
-    slug: "ImmersiveGallery",
+    slug: "immersiveGallery",
     ref: "IMGA",
     },
-    {
-    title: "Fish eyes effect",
-    slug: "FishEyesEffect",
-    ref: "Fisheyes",
-    },
+   
     {
     title: "Init 2",
     slug: "init2",
@@ -33,7 +30,7 @@ const projectsToBeShown:{
     },
     {
     title: "Portfolio Touzinaud",
-    slug: "PortfolioTouzinaud",
+    slug: "portfoliotouzinaud",
     ref: "pfval",
     },
     
@@ -108,11 +105,12 @@ export default function Projects() {
         <div className="project-number">
             <p>{index.toString().padStart(2, '0')}</p>
             <p className="line"></p>
-            <p>05</p>
+            <p>04</p>
         </div>
         <h3 className="projet-title hover-link">{projectsToBeShown[index-1].title}</h3>
- 
+
         <div className="projet-image ">
+          <Link href={`/projets/${projectsToBeShown[index - 1].slug}`}>
             <Image 
                 fill
                 style={{ objectFit: 'cover' }}
@@ -120,6 +118,7 @@ export default function Projects() {
                 alt="" 
                 className="hover-project"
             />
+          </Link>
         </div>
     </div>
     }

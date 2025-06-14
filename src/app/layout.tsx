@@ -16,13 +16,13 @@ const geistMono = Geist_Mono({
 });
 const poppins = Poppins({
   subsets: ['latin'],
-  weight: ['400', '600', '700'], // Choisis les poids que tu veux
-  variable: '--font-poppins',   // Optionnel, pour l'utiliser en variable CSS
+  weight: ['400', '600', '700'], 
+  variable: '--font-poppins',  
 })
 
 
 export const metadata: Metadata = {
-  title: "CESAR STLO - PORTFOLIO",
+  title: "César St-lo - Portfolio",
   description: "Cesar's Portfolio, made by hand with a touch of motion",
 };
 
