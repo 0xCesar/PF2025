@@ -3,8 +3,16 @@
 import { notFound } from "next/navigation";
 import React, { useEffect, use } from "react";
 import { gsap } from "gsap";
+import Image from 'next/image'
 import "./project.css";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+import { Poppins } from 'next/font/google';
+
+const poppins = Poppins({
+  subsets: ['latin'],
+  weight: ['400', '600', '700'],
+  variable: '--font-poppins',   
+})
 
 gsap.registerPlugin(ScrollToPlugin);
 
@@ -32,12 +40,10 @@ const projects = [
   {
     title: "Init2",
     slug: "init2",
-    ref: "/paris2024",
     description:
       "Volympique est une application conçue pour aider les bénévoles à s'orienter...",
     competence: ["HTML", "SCSS", "JS", "FIGMA", "PHOTOSHOP", "PREMIERE PRO"],
-    date: "12/02/2024",
-    preview: ["/Moodboard1"],
+    preview: 4,
   },
   {
     title: "Portfolio Touzinaud",
@@ -51,6 +57,8 @@ const projects = [
   },
 ];
 
+
+
 export default function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = use(params);
 
@@ -58,15 +66,41 @@ export default function ProjectPage({ params }: { params: Promise<{ slug: string
 
   if (!project) return notFound();
 
+  
+
   return (
     <div>
-      <h1>{project.title}</h1>
-      <p>{project.description}</p>
-      <ul>
-        {project.competence.map((tech, i) => (
-          <li key={i}>{tech}</li>
-        ))}
-      </ul>
+      <div className='projectpage-container'>
+    
+            <div className='projectpage-content'>
+              <h3>{project.title}</h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+            </div>
+            <div className='projectpage-preview'>
+              <Image 
+                src={`/assets-projet/${project.slug}/img0.png`}
+                alt=''
+                fill
+                style={{ objectFit: 'cover' }}
+                className="hover-project"
+              />
+            </div>
+      </div> 
+      {
+        Array.from({ length: project.preview }).map((_, i) => (
+          <div key={i} className="projectpage-image-wrapper">
+            <Image
+              src={`/assets-projet/${project.slug}/img${i+1}.png`}
+              alt={`Image ${i + 1}`}
+              width={800}
+              height={600}
+              className="projectpage-image"
+            />
+          </div>
+        ))
+      }
+     
     </div>
+    
   );
 }
