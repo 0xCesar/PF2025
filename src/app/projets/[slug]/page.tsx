@@ -87,7 +87,7 @@ export default function ProjectPage({ params }: { params: Promise<{ slug: string
             </div>
       </div> 
       {
-        Array.from({ length: project.preview }).map((_, i) => (
+        Array.from({ length: project.preview as number }).map((_, i) => (
           <div key={i} className="projectpage-image-wrapper">
             <Image
               src={`/assets-projet/${project.slug}/img${i+1}.png`}
