@@ -5,6 +5,7 @@ import React, {useState, useRef, useEffect, useCallback} from "react";
 import './projects.css';
 import Image from 'next/image'
 import Link from 'next/link';
+import ThreeScene from "../threescene/ThreeScene";
 
 const projectsToBeShown:{
     title: string;
@@ -101,7 +102,7 @@ export default function Projects() {
     }, []); 
   
 
-    return <div className="projet-container">
+    return <div className="page-container">
         <div className="project-number">
             <p>{index.toString().padStart(2, '0')}</p>
             <p className="line"></p>
@@ -113,12 +114,15 @@ export default function Projects() {
           <Link href={`/projets/${projectsToBeShown[index - 1].slug}`}>
             <Image 
                 fill
-                style={{ objectFit: 'cover' }}
+                style={{ objectFit: 'contain' }}
                 src={'/assets-img/' +projectsToBeShown[index-1].ref + '.png'} 
                 alt="" 
+                
                 className="hover-project"
             />
+             <ThreeScene nbPlane={projectsToBeShown.length}></ThreeScene>
           </Link>
+         
         </div>
     </div>
     }

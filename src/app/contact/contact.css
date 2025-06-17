@@ -15,7 +15,7 @@
     position: relative;
 }
 .contact-content{
-        width: calc((95vw / 12)*4.5);
+    width: calc((95vw / 12)*4.5);
 }
 .contact-content h3{
     font-size: 3rem;

@@ -82,7 +82,7 @@ export default function ProjectPage({ params }: { params: Promise<{ slug: string
                 alt=''
                 fill
                 style={{ objectFit: 'cover' }}
-                className="hover-project"
+               
               />
             </div>
       </div> 

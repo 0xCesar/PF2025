@@ -59,3 +59,14 @@ table {
 a:hover{
 	cursor: none;
 }
+
+/* Harmony css */
+.page-container{
+	display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding-inline: 2.5vw;
+    width: 95vw;
+    margin-top: 15vh;
+    font-family: 'Poppins', sans-serif;
+} 

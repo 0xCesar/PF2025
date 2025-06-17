@@ -24,7 +24,7 @@ export default function Menu() {
     
                     <div className="nav-sub nav-sub-two">
                     
-                    <a>contact@cesar-saintlo.fr</a>
+                    <a className="hover-link" href="mailto:contact@cesar-saintlo.fr">contact@cesar-saintlo.fr</a>
                     <ul className="link-ext">
                         <li className="hover-link"><a target="_blank" href="https://github.com/0xCesar">Github</a></li>
                         <li className="hover-link"><a target="_blank" href="https://www.behance.net/0xCesar">Behance</a></li>
