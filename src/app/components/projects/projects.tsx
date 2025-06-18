@@ -5,7 +5,7 @@ import React, {useState, useRef, useEffect, useCallback} from "react";
 import './projects.css';
 import Image from 'next/image'
 import Link from 'next/link';
-
+import { gsap } from 'gsap';
 import ThreeScene from "../threescene/ThreeScene";
 
 const projectsToBeShown:{
@@ -41,29 +41,83 @@ const projectsToBeShown:{
 export default function Projects() {
 
     let [index, setIndex] = useState(1);
+    const isScrollingRef = useRef(false);
+    let wheelTimeout: ReturnType<typeof setTimeout>;
+
+
+
 
     const nextProjet = () => {
+      const projectsName = document.querySelectorAll('#projet-title > *');
+      const projectsNumber = document.querySelectorAll('#number-project > *');
+
       setIndex((prevIndex) => {
+  
         if (prevIndex < projectsToBeShown.length) {
+
+          let gap = '-100%'
+          if(prevIndex != 0){
+            gap = -100 * prevIndex + '%';
+          }
+
+          console.log(gap)
+          gsap.timeline().to(projectsName, { y: gap,  duration: 0.4, ease : "circ.inOut"},0)  
+           gsap.timeline().to(projectsNumber, { y: gap,  duration: 0.4, ease : "circ.inOut" },0) 
+
           return prevIndex + 1;
         }
+
         console.log('no next project');
         return prevIndex;
       });
     };
+
+   
   
     const prevProjet = () => {
+      const projectsName = document.querySelectorAll('#projet-title > *');
+      const projectsNumber = document.querySelectorAll('#number-project > *');
+
       setIndex((prevIndex) => {
+        
         if (prevIndex > 1) {
+        console.log(prevIndex)
+        let gap = '0%'
+        if(prevIndex != 2){
+          gap = (-100 * (prevIndex - 1)) + 100 + '%';
+        }
+
+        console.log(gap)
+
+   
+        gsap.timeline().to(projectsName, { y: gap,  duration: 0.4, ease: "circ.inOut"},0)  
+        gsap.timeline().to(projectsNumber, { y: gap,  duration: 0.4, ease : "circ.inOut"},0)  
+    
           return prevIndex - 1;
         }
         console.log('no prev project');
         return prevIndex;
       });
     };
+
+  function wrapLetters(elements: NodeListOf<Element>) {
+    elements.forEach(el => {
+      const text = el.textContent;
+      if (!text) return;
+  
+      el.innerHTML = ''; // Clear element
+      const letters = text.split('');
+  
+      letters.forEach(letter => {
+        const span = document.createElement('span');
+        span.textContent = letter;
+        span.style.display = 'inline-block';
+        el.appendChild(span);
+      });
+    });
+  }
     
-    const isScrollingRef = useRef(false);
-    let wheelTimeout: ReturnType<typeof setTimeout>;
+   
     const handleSceneWheel = (e: WheelEvent) => {
           e.preventDefault();
 
@@ -105,7 +159,9 @@ export default function Projects() {
         }, 800);  // Animation Time
       };*/
      
-  
+      const projectsName = document.querySelectorAll('#projet-title > *');
+      wrapLetters(projectsName);
+
       const handleKeyDown = (e: KeyboardEvent) => {
         if (e.key === "ArrowDown") {
           nextProjet(); 
@@ -126,13 +182,26 @@ export default function Projects() {
 
     return <div className="page-container">
         <div className="project-number">
-            <p>{index.toString().padStart(2, '0')}</p>
+            <div id="number-project">
+            {projectsToBeShown.map((_, i) => (
+              <p
+                  key={i}
+                >
+                  {(i + 1).toString().padStart(2, '0')}
+                </p>
+              ))}
+            </div>
+            
             <p className="line"></p>
-            <p>04</p>
+            <p>{projectsToBeShown.length.toString().padStart(2, '0')}</p>
         </div>
-        <div >
-          <h3 className="projet-title hover-link">{projectsToBeShown[index-1].title}</h3>
+        <div className="all-projects-titles-container" id="projet-title">
 
+          {projectsToBeShown.map((project, i) => (
+                <h3 key={project.slug}  className="projet-title   hover-link">
+                  {project.title}
+                </h3>
+          ))}
         </div>
         
         <div className="projet-image ">

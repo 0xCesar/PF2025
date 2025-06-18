@@ -34,8 +34,9 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ nbPlane, onWheel }) => {
     }
   };
   const animatePlanes = () => {
-  const planeHeight = planeRefs.current[0]?.geometry?.parameters?.height || 1;
-    
+  const geometry = planeRefs.current[0]?.geometry as THREE.PlaneGeometry;
+  const planeHeight = geometry.parameters.height;
+
     planeRefs.current.forEach((plane, i) => {
       const targetY = planeHeight * 1.2 * (i - currentIndex.current) * -1;
 
@@ -60,9 +61,13 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ nbPlane, onWheel }) => {
   
       const renderer = new THREE.WebGLRenderer({ alpha: true });
       renderer.setSize(width, extraHeight);
-      if (containerRef.current && containerRef.current.children.length === 0) {
-        containerRef.current.appendChild(renderer.domElement);
+     /* if (containerRef.current && containerRef.current.children.length === 0) { */
+       const existingCanvas = containerRef.current?.querySelector('canvas');
+      if (existingCanvas) {
+        containerRef.current?.removeChild(existingCanvas);
       }
+      containerRef.current?.appendChild(renderer.domElement);
+     /* } */
       camera.position.z = 5;
      
       if (typeof window !== 'undefined') {
@@ -111,6 +116,7 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ nbPlane, onWheel }) => {
         // Render the scene and camera
         renderer.render(scene, camera);
            return () => {
+            
             planeRefs.current.forEach((plane) => {
             if (plane) {
               scene.remove(plane);

@@ -19,7 +19,10 @@
     text-transform: uppercase;
     font-weight: bold;
   }
-  
+  .all-projects-titles-container{
+    height: 3rem;
+    overflow: hidden;
+  }
 .projet-image{
     width: calc((95vw / 12)*6);
     height: 50vh;
@@ -32,4 +35,8 @@
     height: auto !important;
     top: unset !important;
     visibility: none;
+}
+#number-project{
+    height: 1rem;
+    overflow: hidden;
 }
