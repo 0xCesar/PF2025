@@ -3,6 +3,9 @@ import * as THREE from 'three';
 import './ThreeScene.css';
 import { gsap } from 'gsap';
 
+import vertexShader from '@/shader/planeShader/vertex.glsl';
+import fragmentShader from '@/shader/planeShader/fragment.glsl';
+
 const texturePaths = [
   '/assets-img/canette.png',
   '/assets-img/IMGA.png',
@@ -33,6 +36,7 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ nbPlane, onWheel }) => {
       animatePlanes();
     }
   };
+
   const animatePlanes = () => {
   const geometry = planeRefs.current[0]?.geometry as THREE.PlaneGeometry;
   const planeHeight = geometry.parameters.height;
@@ -61,13 +65,12 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ nbPlane, onWheel }) => {
   
       const renderer = new THREE.WebGLRenderer({ alpha: true });
       renderer.setSize(width, extraHeight);
-     /* if (containerRef.current && containerRef.current.children.length === 0) { */
-       const existingCanvas = containerRef.current?.querySelector('canvas');
+      const existingCanvas = containerRef.current?.querySelector('canvas');
       if (existingCanvas) {
         containerRef.current?.removeChild(existingCanvas);
       }
       containerRef.current?.appendChild(renderer.domElement);
-     /* } */
+
       camera.position.z = 5;
      
       if (typeof window !== 'undefined') {
@@ -80,6 +83,11 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ nbPlane, onWheel }) => {
         const planeWidth = planeHeight * aspect;
             
         const loader = new THREE.TextureLoader();
+        const materialShader = new THREE.ShaderMaterial({
+          vertexShader,
+          fragmentShader,
+          transparent: true,
+        });
     
         for(let i = 0; i < nbPlane; i++){
           const textureIndex = i % texturePaths.length; // Pour boucler si nbPlane > texturePaths.length
@@ -87,7 +95,7 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ nbPlane, onWheel }) => {
 
           const planeGeometry = new THREE.PlaneGeometry(planeWidth, planeHeight);
           const material = new THREE.MeshBasicMaterial({ map: texture, transparent: true });
-          const plane = new THREE.Mesh(planeGeometry, material);
+          const plane = new THREE.Mesh(planeGeometry, materialShader);
    
           if( i != 0 ){
             plane.position.y = planeHeight * 1.2 * -i ;
