@@ -83,11 +83,9 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ nbPlane, onWheel }) => {
         const planeWidth = planeHeight * aspect;
             
         const loader = new THREE.TextureLoader();
-        const materialShader = new THREE.ShaderMaterial({
-          vertexShader,
-          fragmentShader,
-          transparent: true,
-        });
+
+        const flagTexture = loader.load('/assets-img/canette.png')
+       
     
         for(let i = 0; i < nbPlane; i++){
           const textureIndex = i % texturePaths.length; // Pour boucler si nbPlane > texturePaths.length
@@ -95,8 +93,20 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ nbPlane, onWheel }) => {
 
           const planeGeometry = new THREE.PlaneGeometry(planeWidth, planeHeight);
           const material = new THREE.MeshBasicMaterial({ map: texture, transparent: true });
+           const materialShader = new THREE.ShaderMaterial({
+              vertexShader,
+              fragmentShader,
+              transparent: true,
+              uniforms:
+                {
+                    uFrequency: { value: new THREE.Vector2(10, 5) },
+                    uTime: { value: 0 },
+                    uColor: { value: new THREE.Color('orange') },
+                    uTexture: { value: texture }
+                }
+            });
           const plane = new THREE.Mesh(planeGeometry, materialShader);
-   
+      
           if( i != 0 ){
             plane.position.y = planeHeight * 1.2 * -i ;
           }
@@ -107,12 +117,15 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ nbPlane, onWheel }) => {
           planeRefs.current[i] = plane;
         }
         console.log(planeRefs)
-
+        const clock = new THREE.Clock();
         const renderScene = () => {
+            const elapsedTime = clock.getElapsedTime()
             planeRefs.current.forEach((plane, i) => {
               if (plane) {
                // plane.position.y += 0.05;
                // console.log(plane.position.y)
+              const shaderMaterial = plane.material as THREE.ShaderMaterial;
+              shaderMaterial.uniforms.uTime.value = elapsedTime;
 
               }
             });
