@@ -8,8 +8,8 @@ void main() {
 
     vec3 textureColor = texture2D(uTexture, vUv).rgb;
 
-    vec3 baseColor = mix(textureColor, vec3(0.1, 0.0, 0.0), trailValue);
-    gl_FragColor = vec4(baseColor, 1.0);
+   // vec3 baseColor = mix(textureColor, vec3(0.1, 0.0, 0.0), trailValue);
+    gl_FragColor = vec4(textureColor, 1.0);
 }
 
 
