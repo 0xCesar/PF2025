@@ -122,7 +122,7 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ nbPlane, onWheel }) => {
       canvas.style.top = '0';
       canvas.style.left = '0';
       canvas.style.zIndex = '10';
-      document.body.appendChild(canvas);
+      //document.body.appendChild(canvas);
 
       displacement.canvas = canvas;
 
