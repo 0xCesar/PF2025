@@ -1,10 +1,28 @@
+uniform sampler2D uTrail;
+
+varying vec2 vUv;
+
+void main() {
+    vUv = uv;
+
+    float trailValue = texture2D(uTrail, uv).r;
+
+    float distortion = trailValue * 0.8;
+
+    vec3 newPosition = position;
+    newPosition.z += distortion;
+
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(newPosition, 1.0);
+}
 /*varying vec2 vUv;
 
 void main() {
   vUv = uv;
   gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-}
-*/
+}*/
+
+
+/*
 uniform vec2 uFrequency;
 uniform float uTime;
 
@@ -15,8 +33,8 @@ void main()
 {
     vec4 modelPosition = modelMatrix * vec4(position, 1.0);
 
-    float elevation = sin(modelPosition.x * uFrequency.x - uTime) * 0.1;
-    elevation += sin(modelPosition.y * uFrequency.y - uTime) * 0.1;
+    float elevation = sin(modelPosition.x * uFrequency.x  - uTime) * 0.1;
+    elevation += sin(modelPosition.x * uFrequency.x - uTime) * 0.1;
 
     modelPosition.z += elevation;
 
@@ -28,3 +46,4 @@ void main()
     vUv = uv;
     vElevation = elevation;
 }
+*/

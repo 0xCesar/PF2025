@@ -60,14 +60,14 @@ export default function Projects() {
             gap = -100 * prevIndex + '%';
           }
 
-          console.log(gap)
+        //  console.log(gap)
           gsap.timeline().to(projectsName, { y: gap,  duration: 0.4, ease : "circ.inOut"},0)  
            gsap.timeline().to(projectsNumber, { y: gap,  duration: 0.4, ease : "circ.inOut" },0) 
 
           return prevIndex + 1;
         }
 
-        console.log('no next project');
+      //  console.log('no next project');
         return prevIndex;
       });
     };
@@ -81,13 +81,13 @@ export default function Projects() {
       setIndex((prevIndex) => {
         
         if (prevIndex > 1) {
-        console.log(prevIndex)
+       // console.log(prevIndex)
         let gap = '0%'
         if(prevIndex != 2){
           gap = (-100 * (prevIndex - 1)) + 100 + '%';
         }
 
-        console.log(gap)
+      //  console.log(gap)
 
    
         gsap.timeline().to(projectsName, { y: gap,  duration: 0.4, ease: "circ.inOut"},0)  
@@ -95,7 +95,7 @@ export default function Projects() {
     
           return prevIndex - 1;
         }
-        console.log('no prev project');
+      //  console.log('no prev project');
         return prevIndex;
       });
     };
@@ -124,11 +124,11 @@ export default function Projects() {
           if (isScrollingRef.current) return;
           isScrollingRef.current = true;
 
-          console.log(e.deltaY)
-          if (e.deltaY > 3) {
+         // console.log(e.deltaY)
+          if (e.deltaY > 2.5) {
             nextProjet();
    
-          } else if (e.deltaY < -3) {
+          } else if (e.deltaY < -2.5) {
             prevProjet();
           }
 
