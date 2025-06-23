@@ -7,7 +7,7 @@ void main() {
 
     float trailValue = texture2D(uTrail, uv).r;
 
-    float distortion = trailValue * 0.8;
+    float distortion = trailValue * 0.9;
 
     vec3 newPosition = position;
     newPosition.z += distortion;

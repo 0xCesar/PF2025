@@ -3,3 +3,8 @@
     height: 50vh;
         transform: translateY(-20%);
 }
+
+.ref-container-size{
+    width: calc((95vw / 12)*6);
+    background-color: aqua;
+}

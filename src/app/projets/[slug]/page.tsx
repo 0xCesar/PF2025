@@ -41,7 +41,7 @@ const projects = [
     title: "Init2",
     slug: "init2",
     description:
-      "Volympique est une application conçue pour aider les bénévoles à s'orienter...",
+      "Init2 is a company based at Nantes, France. They were asking me to do their refonte website. I was working with Marthe Aubineau ( designer ), I integrated her design in fully responsive website.",
     competence: ["HTML", "SCSS", "JS", "FIGMA", "PHOTOSHOP", "PREMIERE PRO"],
     preview: 4,
   },
@@ -74,7 +74,7 @@ export default function ProjectPage({ params }: { params: Promise<{ slug: string
     
             <div className='projectpage-content'>
               <h3>{project.title}</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+              <p>{project.description} </p>
             </div>
             <div className='projectpage-preview'>
               <Image 

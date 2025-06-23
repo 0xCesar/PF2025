@@ -12,7 +12,12 @@ export default function Menu() {
     
     return <header className="nav">
                     <div className="nav-sub nav-sub-one">
-                    <Link href={'/'}><h2>César SAINT-LO</h2></Link>
+                    <div>
+                        <Link href={'/'}><h2>César SAINT-LO</h2></Link>
+                        <p className="spe">front developper</p>
+                    </div>    
+                    
+                    
                     <nav>
                         <ul>
                             <li className="hover-link"><Link href={'/about'}>About</Link></li>

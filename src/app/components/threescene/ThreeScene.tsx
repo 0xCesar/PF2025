@@ -36,6 +36,7 @@ interface Displacement {
 
 const ThreeScene: React.FC<ThreeSceneProps> = ({ nbPlane, onWheel }) => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const containerWidth = useRef<HTMLDivElement>(null);
   const planeRefs = useRef<THREE.Mesh[]>([]);
   const sceneRef = useRef<THREE.Scene>(null);
   const cameraRef = useRef<THREE.Camera>(null)
@@ -77,12 +78,13 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ nbPlane, onWheel }) => {
     if (typeof window !== 'undefined') {
       const scene = new THREE.Scene();
       const width = containerRef.current?.offsetWidth ?? window.innerWidth;
+      const widthForPlane = containerWidth.current?.offsetWidth ?? window.innerWidth;
       const height = containerRef.current?.offsetHeight ?? window.innerHeight;
       const extraHeight = height * 1.2;
   
       const camera = new THREE.PerspectiveCamera(75, width / extraHeight, 0.1, 1000);
   
-      const renderer = new THREE.WebGLRenderer({ alpha: true });
+      const renderer = new THREE.WebGLRenderer({ alpha: true,antialias: true });
       
       renderer.setSize(width, extraHeight);
       renderer.setPixelRatio(2);
@@ -137,9 +139,13 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ nbPlane, onWheel }) => {
       displacement.glowImage = new Image();
       displacement.glowImage.src = './debugging/glow.png';
 
-      displacement.interactivePlane = new THREE.Mesh(new THREE.PlaneGeometry(10,10), new THREE.MeshBasicMaterial({ color : 'red'}))
+      displacement.interactivePlane = new THREE.Mesh(new THREE.PlaneGeometry(10,10), new THREE.MeshBasicMaterial({ color : 'red', visible: true}))
+      
+        //  displacement.interactivePlane.position.y = 1
       if(sceneRef.current){
         sceneRef.current.add(displacement.interactivePlane);
+        const axesHelper = new THREE.AxesHelper( 5 );
+        scene.add( axesHelper );
       }
       displacement.raycaster = new THREE.Raycaster();
       displacement.screenCursor = new THREE.Vector2(999, 999);
@@ -160,6 +166,9 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ nbPlane, onWheel }) => {
       })
 
       displacement.texture = new THREE.CanvasTexture(displacement.canvas)
+      displacement.texture.minFilter = THREE.LinearMipMapLinearFilter;
+      displacement.texture.magFilter = THREE.LinearFilter;
+      displacement.texture.generateMipmaps = true;
 
       }
       
@@ -173,6 +182,7 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ nbPlane, onWheel }) => {
               vertexShader,
               fragmentShader,
               transparent: true,
+            //  wireframe: true,
               uniforms:
                 {
      
@@ -187,7 +197,7 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ nbPlane, onWheel }) => {
             plane.position.y = planeHeight * 1.2 * -i ;
           }
           //(plane.material as THREE.MeshBasicMaterial).color.set(0xff0000);
-            scene.add(plane);
+          scene.add(plane);
           
        
           planeRefs.current[i] = plane;
@@ -327,7 +337,9 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ nbPlane, onWheel }) => {
 }, []);
 
  
-  return <div ref={containerRef} className='container-canvas   hover-project' />
+  return <div ref={containerRef} className='container-canvas   hover-project'>
+    <div ref={containerWidth} className='ref-container-size'></div>
+  </div>
 
     
 };
