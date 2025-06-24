@@ -139,14 +139,10 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ nbPlane, onWheel }) => {
       displacement.glowImage = new Image();
       displacement.glowImage.src = './debugging/glow.png';
 
-      displacement.interactivePlane = new THREE.Mesh(new THREE.PlaneGeometry(10,10), new THREE.MeshBasicMaterial({ color : 'red', visible: true}))
+      displacement.interactivePlane = new THREE.Mesh(new THREE.PlaneGeometry(planeWidth, planeHeight,10,10), new THREE.MeshBasicMaterial({ color : 'red', visible: false}))
       
         //  displacement.interactivePlane.position.y = 1
-      if(sceneRef.current){
-        sceneRef.current.add(displacement.interactivePlane);
-        const axesHelper = new THREE.AxesHelper( 5 );
-        scene.add( axesHelper );
-      }
+      scene.add(displacement.interactivePlane);
       displacement.raycaster = new THREE.Raycaster();
       displacement.screenCursor = new THREE.Vector2(999, 999);
       displacement.canvasCursor = new THREE.Vector2(999, 999);

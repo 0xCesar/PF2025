@@ -4,6 +4,7 @@ import "./globals.css";
 import Menu from "./components/menu/menu";
 import { Poppins } from 'next/font/google'
 import Cursor from "./components/cursor/cursor";
+import ResponsiveLayout from "./components/ResponsiveLayout";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,9 +35,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={poppins.variable}>
-        <Menu />
-        {children}
-        <Cursor />
+        <ResponsiveLayout>{children}</ResponsiveLayout>
       </body>
     </html>
   );
