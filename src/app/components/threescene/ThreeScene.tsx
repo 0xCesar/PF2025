@@ -324,7 +324,16 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ nbPlane, onWheel }) => {
       }, 800);
     };
 
+    const handleKeyDown = (e: KeyboardEvent) => {
+     if (e.key === "ArrowDown") {
+       nextProjet(); 
+     } else if (e.key === "ArrowUp") {
+        prevProjet();
+     }
+    };
+
     window.addEventListener('wheel', handleSceneWheel, { passive: false });
+    window.addEventListener("keydown", handleKeyDown);
 
     return () => {
       window.removeEventListener('wheel', handleSceneWheel);

@@ -11,7 +11,10 @@ export default function LandingMobile() {
 
     
     return <div className="bodyMobile">
-        <header>CESAR SAINT-LO</header>
+        <header>
+            <p>CESAR SAINT-LO</p>
+            <p className="spe">frontend developper</p>
+        </header>
         <section>
             <p>(visit this website on a desktop for full experience)</p>
             <img alt="" src={'/assets-about/contactflower.png'}/>
