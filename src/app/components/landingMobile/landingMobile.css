@@ -20,14 +20,13 @@
 }
 .bodyMobile section{
     width: calc(100vw - 5rem);
-    position: absolute;
-    left: 2.5rem;
-    top: 50vh;
-    transform: translateY(-50%);
+    margin-top: 2.5rem;
+    margin-left: 2.5rem;
+
 }
 .bodyMobile img{
     width: calc(100vw - 5rem);
-    height: 50vh;
+    height: 40vh;
     object-fit: cover;
 }
 .bodyMobile section p{
