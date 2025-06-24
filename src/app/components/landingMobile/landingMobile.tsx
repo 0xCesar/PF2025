@@ -13,10 +13,12 @@ export default function LandingMobile() {
     return <div className="bodyMobile">
         <header>CESAR SAINT-LO</header>
         <section>
-            <img alt="" src={'/assets-about/contactflower.png'}/>
             <p>(visit this website on a desktop for full experience)</p>
+            <img alt="" src={'/assets-about/contactflower.png'}/>
+
         </section>
         <footer>
+            <p>Social Link :</p>
             <ul className="link-ext">
                         <li><a target="_blank" href="https://github.com/0xCesar">Github</a></li>
                         <li><a target="_blank" href="https://www.behance.net/0xCesar">Behance</a></li>
