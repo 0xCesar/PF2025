@@ -10,9 +10,7 @@
 
 }
 .bodyMobile footer{
-    position: absolute;
-    bottom: 2.5rem;
-    right: 2.5rem
+        margin-top: 2.5rem;
 }
 .bodyMobile header{
     margin-top: 2.5rem;
