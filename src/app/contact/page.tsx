@@ -13,7 +13,14 @@ export default function Contact() {
 
         <div className='contact-content'>
           <h3>Contact</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+          <p>Got a project in mind or just want to say hello? </p>
+<p>I’m always open to new ideas, collaborations, or freelance opportunities — whether you're a startup, an agency, or an individual.</p>
+
+<p>Just drop me a message and let’s build something great together.</p>
+
+<a className="hover-link" href="mailto:contact@cesar-saintlo.fr">contact@cesar-saintlo.fr</a>
+
+
         </div>
         <div className='contact-image'>
           <Image 

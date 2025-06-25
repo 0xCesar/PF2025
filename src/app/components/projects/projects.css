@@ -15,12 +15,13 @@
 }
 .projet-title{
     width: calc((95vw / 12)*5);
-    font-size: 3rem;
+    font-size: 2rem;
     text-transform: uppercase;
     font-weight: bold;
+    text-wrap-mode: nowrap;
   }
   .all-projects-titles-container{
-    height: 3rem;
+    height: 2rem;
     overflow: hidden;
   }
 .projet-image{

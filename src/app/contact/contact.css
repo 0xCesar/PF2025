@@ -22,3 +22,11 @@
     text-transform: uppercase;
     font-weight: bold;
 }
+.contact-content p{
+    margin-top: 1.5vh;
+}
+.contact-content a{
+    color: black;
+        margin-top: 1.5vh;
+        display: inline-block;
+}

@@ -22,8 +22,9 @@ const projects = [
     slug: "canette3D",
     ref: "/moontain",
     description:
-      "Moontain est à la fois un vlog d'alpinisme et une boutique en ligne spécialisée...",
-    competence: ["ILLUSTRATOR", "FIGMA", "PHOTOSHOP"],
+      "This was a personal project created during my studies, following Bruno Simon’s “Three.js Journey” course. I wanted to challenge myself and explore what I could build by combining 3D modeling in Blender with interactive web development using Three.js and GSAP.",
+    context: "School Project",
+    skills: "Web design, front-end development, motion design (GSAP), 3D modeling (Blender), 3D integration (Three.js)",
     date: "12/04/2023",
     preview: ["/moontain-img1", "/moontain-img2", "/moontain-img3", "/moontain-img4"],
   },
@@ -32,8 +33,9 @@ const projects = [
     slug: "immersiveGallery",
     ref: "/webmarmottes",
     description:
-      "Web Marmottes est une agence web fondée dans le cadre de ma licence professionnelle...",
-    competence: ["HTML", "SCSS", "JS", "FIGMA", "ILLUSTRATOR", "PHOTOSHOP", "WORDPRESS"],
+      "Immersive Gallery is a virtual museum built within a web page. As users scroll, they navigate through the space, revealing artworks and collections. I was responsible for integrating 3D elements and building the interactive experience using Babylon.js.",
+    context: "Internship",
+    skills: "JavaScript development, 3D modeling (Blender), real-time 3D rendering (Babylon.js)",
     date: "22/11/2023",
     preview: ["/WebMarmottes1"],
   },
@@ -41,8 +43,9 @@ const projects = [
     title: "Init2",
     slug: "init2",
     description:
-      "Init2 is a company based at Nantes, France. They were asking me to do their refonte website. I was working with Marthe Aubineau ( designer ), I integrated her design in fully responsive website.",
-    competence: ["HTML", "SCSS", "JS", "FIGMA", "PHOTOSHOP", "PREMIERE PRO"],
+      "Init2 is a company based in Nantes, France. They hired me to rebuild their website. I collaborated with designer Marthe Aubineau, transforming her Figma designs into a fully responsive and accessible website.",
+    context: "Freelance",
+    skills: "Front-end development (HTML, CSS, JavaScript), responsive design", 
     preview: 4,
   },
   {
@@ -50,9 +53,9 @@ const projects = [
     slug: "portfoliotouzinaud",
     ref: "/visuel",
     description:
-      "Les affiches et visuels présentés sont issus de divers projets réalisés durant...",
-    competence: ["LIGHTROOM", "PHOTOSHOP", "ILLUSTRATOR", "FIGMA"],
-    date: "??/??/20XX",
+      "Valentin Touzinaud, a web designer from La Rochelle, asked me to develop his personal portfolio. I used Next.js to create a fast and modern website that faithfully reproduced his design, ensuring responsiveness and a smooth user experience.",
+    context: "Freelance",
+    skills: "Web development (Next.js), responsive design, performance optimization",
     preview: ["/visuel1", "/visuel2", "/visuel3"],
   },
 ];
@@ -74,6 +77,9 @@ export default function ProjectPage({ params }: { params: Promise<{ slug: string
     
             <div className='projectpage-content'>
               <h3>{project.title}</h3>
+        
+              <p>Context : {project.context}</p>
+              <p>Skills Used & Developed: {project.skills}</p>
               <p>{project.description} </p>
             </div>
             <div className='projectpage-preview'>

@@ -100,23 +100,7 @@ export default function Projects() {
       });
     };
 
-  function wrapLetters(elements: NodeListOf<Element>) {
-    elements.forEach(el => {
-      const text = el.textContent;
-      if (!text) return;
-  
-      el.innerHTML = ''; // Clear element
-      const letters = text.split('');
-  
-      letters.forEach(letter => {
-        const span = document.createElement('span');
-        span.textContent = letter;
-        span.style.display = 'inline-block';
-        el.appendChild(span);
-      });
-    });
-  }
-    
+
    
     const handleSceneWheel = (e: WheelEvent) => {
           e.preventDefault();
@@ -140,27 +124,10 @@ export default function Projects() {
       };
 
     useEffect(() => {
-      /*const handleWheel = (e: WheelEvent) => {
-        e.preventDefault();
-
-        if (isScrolling) return; 
-        isScrolling = true;
-
-        if (e.deltaY > 0) {
-          nextProjet();
-        } else if (e.deltaY < 0) {
-          prevProjet();
-        }
-
-        clearTimeout(wheelTimeout);
-        wheelTimeout = setTimeout(() => {
-          console.log('Fin du wheel event');
-          isScrolling = false;
-        }, 800);  // Animation Time
-      };*/
+ 
      
       const projectsName = document.querySelectorAll('#projet-title > *');
-      wrapLetters(projectsName);
+    
 
       const handleKeyDown = (e: KeyboardEvent) => {
         if (e.key === "ArrowDown") {
