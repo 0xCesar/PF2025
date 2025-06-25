@@ -26,7 +26,8 @@ const projects = [
     context: "School Project",
     skills: "Web design, front-end development, motion design (GSAP), 3D modeling (Blender), 3D integration (Three.js)",
     date: "12/04/2023",
-    preview: ["/moontain-img1", "/moontain-img2", "/moontain-img3", "/moontain-img4"],
+
+    preview: 1,
   },
   {
     title: "Immersive Gallery",
@@ -37,7 +38,7 @@ const projects = [
     context: "Internship",
     skills: "JavaScript development, 3D modeling (Blender), real-time 3D rendering (Babylon.js)",
     date: "22/11/2023",
-    preview: ["/WebMarmottes1"],
+   preview: 2,
   },
   {
     title: "Init2",
@@ -56,7 +57,7 @@ const projects = [
       "Valentin Touzinaud, a web designer from La Rochelle, asked me to develop his personal portfolio. I used Next.js to create a fast and modern website that faithfully reproduced his design, ensuring responsiveness and a smooth user experience.",
     context: "Freelance",
     skills: "Web development (Next.js), responsive design, performance optimization",
-    preview: ["/visuel1", "/visuel2", "/visuel3"],
+    preview: 4,
   },
 ];
 

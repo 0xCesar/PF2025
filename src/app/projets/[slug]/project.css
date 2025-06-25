@@ -27,8 +27,11 @@
     width: 95vw;
 }
 .projectpage-image-wrapper img{
-    width: 100%;
     height: auto;
+    margin-inline: auto;
+    width: fit-content;
+    display: block;
+
 }
 .projectpage-content p{
     margin-top: 1.5rem;

@@ -41,6 +41,7 @@ const projectsToBeShown:{
 export default function Projects() {
 
     let [index, setIndex] = useState(1);
+    const [currentIndex, setCurrentIndex] = useState(0);
     const isScrollingRef = useRef(false);
     let wheelTimeout: ReturnType<typeof setTimeout>;
 
@@ -70,6 +71,10 @@ export default function Projects() {
       //  console.log('no next project');
         return prevIndex;
       });
+        setCurrentIndex(prev => {
+          const newIndex = Math.min(prev + 1, projectsToBeShown.length - 1);
+          return newIndex;
+        });
     };
 
    
@@ -97,6 +102,10 @@ export default function Projects() {
         }
       //  console.log('no prev project');
         return prevIndex;
+      });
+      setCurrentIndex(prev => {
+        const newIndex = Math.max(prev - 1, 0);
+        return newIndex;
       });
     };
 
@@ -176,7 +185,7 @@ export default function Projects() {
          
              <ThreeScene 
              nbPlane={projectsToBeShown.length}
-             onWheel={handleSceneWheel}
+             currentIndex={currentIndex}
              ></ThreeScene>
           </Link>
          

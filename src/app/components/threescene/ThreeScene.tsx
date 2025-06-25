@@ -19,7 +19,8 @@ const texturePaths = [
 
 interface ThreeSceneProps {
   nbPlane: number;
-  onWheel?: (event: WheelEvent) => void;
+  //onWheel?: (event: WheelEvent) => void;
+    currentIndex: number; 
 }
 
 interface Displacement {
@@ -34,44 +35,30 @@ interface Displacement {
   texture: THREE.CanvasTexture;
 }
 
-const ThreeScene: React.FC<ThreeSceneProps> = ({ nbPlane, onWheel }) => {
+const ThreeScene: React.FC<ThreeSceneProps> = ({ nbPlane, currentIndex }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const containerWidth = useRef<HTMLDivElement>(null);
   const planeRefs = useRef<THREE.Mesh[]>([]);
   const sceneRef = useRef<THREE.Scene>(null);
   const cameraRef = useRef<THREE.Camera>(null)
   const rendererRef = useRef<THREE.WebGLRenderer>(null);
-  const currentIndex = useRef<number>(0);
 
-  const nextProjet = () => {
-    if (currentIndex.current < nbPlane - 1) {
-      currentIndex.current += 1;
-      animatePlanes();
-    }
-  };
-
-  const prevProjet = () => {
-    if (currentIndex.current > 0) {
-      currentIndex.current -= 1;
-      animatePlanes();
-    }
-  };
-
-  const animatePlanes = () => {
+ const animatePlanes = () => {
   const geometry = planeRefs.current[0]?.geometry as THREE.PlaneGeometry;
-  const planeHeight = geometry.parameters.height;
+  const planeHeight = geometry?.parameters?.height;
 
-    planeRefs.current.forEach((plane, i) => {
-      const targetY = planeHeight * 1.2 * (i - currentIndex.current) * -1;
+  if (!planeHeight) return;
 
-      gsap.to(plane.position, {
-        y: targetY,
-        duration: 0.8,
-        ease: 'power3.inOut',
-      });
+  planeRefs.current.forEach((plane, i) => {
+    const targetY = planeHeight * 1.2 * (i - currentIndex ) * -1;
+
+    gsap.to(plane.position, {
+      y: targetY,
+      duration: 0.8,
+      ease: 'power3.inOut',
     });
-  };
-
+  });
+};
   useEffect(() => {
 
     //console.log(planeRefs)
@@ -124,7 +111,7 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ nbPlane, onWheel }) => {
       canvas.style.top = '0';
       canvas.style.left = '0';
       canvas.style.zIndex = '10';
-      //document.body.appendChild(canvas);
+      document.body.appendChild(canvas);
 
       displacement.canvas = canvas;
 
@@ -192,26 +179,21 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ nbPlane, onWheel }) => {
           if( i != 0 ){
             plane.position.y = planeHeight * 1.2 * -i ;
           }
-          //(plane.material as THREE.MeshBasicMaterial).color.set(0xff0000);
           scene.add(plane);
           
-       
           planeRefs.current[i] = plane;
         }
       
 
 
- // console.log(planeRefs)
+
         const clock = new THREE.Clock();
         const renderScene = () => {
             const elapsedTime = clock.getElapsedTime()
             planeRefs.current.forEach((plane, i) => {
               if (plane) {
-               // plane.position.y += 0.05;
-               // console.log(plane.position.y)
-              const shaderMaterial = plane.material as THREE.ShaderMaterial;
-              shaderMaterial.uniforms.uTime.value = elapsedTime;
-
+                const shaderMaterial = plane.material as THREE.ShaderMaterial;
+                shaderMaterial.uniforms.uTime.value = elapsedTime;
               }
             });
 
@@ -275,6 +257,49 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ nbPlane, onWheel }) => {
         renderScene();
         // Render the scene and camera
         renderer.render(scene, camera);
+
+        const handleResize = () => {
+            const width = containerRef.current?.offsetWidth ?? window.innerWidth;
+            const height = containerRef.current?.offsetHeight ?? window.innerHeight;
+            const extraHeight = height * 1.2;
+
+            renderer.setSize(width, extraHeight);
+            camera.aspect = width / extraHeight;
+            camera.updateProjectionMatrix();
+
+            const fov = (camera.fov * Math.PI) / 180;
+            const targetVisibleHeight = 2 * Math.tan(fov / 2) * camera.position.z;
+            const ratio = height / extraHeight;
+            const planeHeight = targetVisibleHeight * ratio;
+            const planeWidth = planeHeight * (width / height);
+
+            // Resize interactive plane
+            if (displacement.interactivePlane) {
+              const newGeometry = new THREE.PlaneGeometry(planeWidth, planeHeight, 10, 10);
+              displacement.interactivePlane.geometry.dispose();
+              displacement.interactivePlane.geometry = newGeometry;
+            }
+
+            // Resize all image planes
+            planeRefs.current.forEach((plane, i) => {
+              const newGeometry = new THREE.PlaneGeometry(planeWidth, planeHeight, 10, 10);
+              plane.geometry.dispose();
+              plane.geometry = newGeometry;
+
+              // Reposition according to new height
+              plane.position.y = i === 0 ? 0 : planeHeight * 1.2 * -i;
+            });
+
+            animatePlanes(); // reposition based on currentIndex
+          };
+
+          window.addEventListener('resize', handleResize);
+          handleResize(); // Appelle immédiatement pour le premier sizing
+
+          // Cleanup
+          return () => {
+            window.removeEventListener('resize', handleResize);
+          };
            return () => {
             
             planeRefs.current.forEach((plane) => {
@@ -299,47 +324,13 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ nbPlane, onWheel }) => {
           };
        }
   
+       
     }
   }, []);
 
- useEffect(() => {
-  if (typeof window !== 'undefined') {
-    let wheelTimeout: NodeJS.Timeout;
-    const isScrollingRef = { current: false };
-
-    const handleSceneWheel = (e: WheelEvent) => {
-      e.preventDefault();
-      if (isScrollingRef.current) return;
-      isScrollingRef.current = true;
-
-      if (e.deltaY > 2.5) {
-        nextProjet();
-      } else if (e.deltaY < -2.5) {
-        prevProjet();
-      }
-
-      clearTimeout(wheelTimeout);
-      wheelTimeout = setTimeout(() => {
-        isScrollingRef.current = false;
-      }, 800);
-    };
-
-    const handleKeyDown = (e: KeyboardEvent) => {
-     if (e.key === "ArrowDown") {
-       nextProjet(); 
-     } else if (e.key === "ArrowUp") {
-        prevProjet();
-     }
-    };
-
-    window.addEventListener('wheel', handleSceneWheel, { passive: false });
-    window.addEventListener("keydown", handleKeyDown);
-
-    return () => {
-      window.removeEventListener('wheel', handleSceneWheel);
-    };
-  }
-}, []);
+useEffect(() => {
+  animatePlanes();
+}, [currentIndex]);
 
  
   return <div ref={containerRef} className='container-canvas   hover-project'>
