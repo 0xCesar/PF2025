@@ -25,13 +25,18 @@
     margin-top: 15vh;
     padding-inline: 2.5vw;
     width: 95vw;
+    display: flex;
+    justify-content: space-between;
 }
 .projectpage-image-wrapper img{
     height: auto;
-    margin-inline: auto;
-    width: fit-content;
+
+    width: calc((95vw / 12) * 6);
     display: block;
 
+}
+.projectpage-image-wrapper img:first-child{
+    width: calc((95vw / 12) * 5);
 }
 .projectpage-content p{
     margin-top: 1.5rem;

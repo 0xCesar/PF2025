@@ -93,20 +93,32 @@ export default function ProjectPage({ params }: { params: Promise<{ slug: string
               />
             </div>
       </div> 
-      {
-        Array.from({ length: project.preview as number }).map((_, i) => (
-          <div key={i} className="projectpage-image-wrapper">
-            <Image
-              src={`/assets-projet/${project.slug}/img${i+1}.png`}
-              alt={`Image ${i + 1}`}
-              width={800}
-              height={600}
-              className="projectpage-image"
-            />
-          </div>
-        ))
-      }
-     
+        {Array.from({ length: project.preview as number }).map((_, i) => {
+          
+          if (i % 2 !== 0) return null;
+
+          return (
+            <div key={i} className="projectpage-image-wrapper">
+              <Image
+                src={`/assets-projet/${project.slug}/img${i + 1}.png`}
+                alt={`Image ${i + 1}`}
+                width={800}
+                height={600}
+                className="projectpage-image"
+              />
+              {(i + 1) < (project.preview as number) && (
+                <Image
+                  src={`/assets-projet/${project.slug}/img${i + 2}.png`}
+                  alt={`Image ${i + 2}`}
+                  width={800}
+                  height={600}
+                  className="projectpage-image"
+                />
+              )}
+            </div>
+          );
+        })}
+            
     </div>
     
   );

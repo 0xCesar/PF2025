@@ -51,11 +51,18 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ nbPlane, currentIndex }) => {
 
   planeRefs.current.forEach((plane, i) => {
     const targetY = planeHeight * 1.2 * (i - currentIndex ) * -1;
+    const shaderMaterial = plane.material as THREE.ShaderMaterial;
+    shaderMaterial.uniforms.uProgress.value = 0.0;
 
     gsap.to(plane.position, {
       y: targetY,
       duration: 0.8,
       ease: 'power3.inOut',
+    });
+   gsap.to(shaderMaterial.uniforms.uProgress, {
+      value: 1,
+      duration: 0.8,
+      ease: 'power2.out',
     });
   });
 };
@@ -111,7 +118,7 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ nbPlane, currentIndex }) => {
       canvas.style.top = '0';
       canvas.style.left = '0';
       canvas.style.zIndex = '10';
-      document.body.appendChild(canvas);
+      //document.body.appendChild(canvas);
 
       displacement.canvas = canvas;
 
@@ -171,7 +178,8 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ nbPlane, currentIndex }) => {
      
                     uTime: { value: 0 },
                     uTrail : new THREE.Uniform(displacement.texture),
-                    uTexture: { value: texture }
+                    uTexture: { value: texture },
+                    uProgress: { value: 0.0 }
                 }
             });
           const plane = new THREE.Mesh(planeGeometry, materialShader);

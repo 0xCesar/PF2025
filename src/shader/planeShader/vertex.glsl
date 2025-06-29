@@ -1,4 +1,5 @@
 uniform sampler2D uTrail;
+uniform float uProgress;
 
 varying vec2 vUv;
 
@@ -11,6 +12,15 @@ void main() {
 
     vec3 newPosition = position;
     newPosition.z += distortion;
+    if(uProgress != 0.0){
+      newPosition.z += distortion * uProgress;
+          newPosition.z += sin(uv.x * 10.0 + uProgress * 3.14) * 0.05 * uProgress;
+    }
+
+
+
+
+
 
     gl_Position = projectionMatrix * modelViewMatrix * vec4(newPosition, 1.0);
 }
