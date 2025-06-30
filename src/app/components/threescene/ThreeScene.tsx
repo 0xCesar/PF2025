@@ -186,6 +186,7 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ nbPlane, currentIndex }) => {
       
           if( i != 0 ){
             plane.position.y = planeHeight * 1.2 * -i ;
+            console.log(plane.position.y);
           }
           scene.add(plane);
           
