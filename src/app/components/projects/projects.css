@@ -1,3 +1,7 @@
+.project-container{
+        display: none;
+}
+
 .project-number{
     position: absolute;
 
@@ -40,4 +44,13 @@
 #number-project{
     height: 1rem;
     overflow: hidden;
+}
+#cachecache{
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    z-index: 5;
+    top : 18vh;
+    background-color: #ffffff;
+    left: 0;
 }

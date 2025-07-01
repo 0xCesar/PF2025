@@ -77,8 +77,6 @@ export default function Projects() {
         });
     };
 
-   
-  
     const prevProjet = () => {
       const projectsName = document.querySelectorAll('#projet-title > *');
       const projectsNumber = document.querySelectorAll('#number-project > *');
@@ -133,8 +131,13 @@ export default function Projects() {
       };
 
     useEffect(() => {
- 
-     
+
+      /*const projectContainerBig = document.getElementById("cachecache");
+      setTimeout(() => {
+        gsap.to(projectContainerBig, {top : '100vh', duration : 1.2,ease: "power2.inOut",})
+      }, 1500);*/
+    
+      
       const projectsName = document.querySelectorAll('#projet-title > *');
     
 
@@ -157,6 +160,7 @@ export default function Projects() {
   
 
     return <div className="page-container">
+        {/*<div id="cachecache"></div>*/}
         <div className="project-number">
             <div id="number-project">
             {projectsToBeShown.map((_, i) => (
