@@ -13,12 +13,11 @@ export default function LandingMobile() {
     return <div className="bodyMobile">
         <header>
             <p>CESAR SAINT-LO</p>
-            <p className="spe">frontend developper</p>
         </header>
         <section>
             <p>(visit this website on a desktop for full experience)</p>
             <img alt="" src={'/assets-about/contactflower.png'}/>
-
+            <p>Cesar is a french developer that specialize in web developpement and integrating motion and 3D elements</p>
         </section>
         <footer>
             <p>Social Link :</p>
