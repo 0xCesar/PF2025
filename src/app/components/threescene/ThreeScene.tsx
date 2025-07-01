@@ -63,7 +63,9 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ nbPlane, currentIndex }) => {
       value: 1,
       duration: 0.8,
       ease: 'power2.out',
-    });
+     
+  })
+ 
   });
 };
   useEffect(() => {
@@ -133,9 +135,9 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ nbPlane, currentIndex }) => {
       displacement.glowImage = new Image();
       displacement.glowImage.src = './debugging/glow.png';
 
-      displacement.interactivePlane = new THREE.Mesh(new THREE.PlaneGeometry(planeWidth, planeHeight,10,10), new THREE.MeshBasicMaterial({ color : 'red', visible: false}))
+      displacement.interactivePlane = new THREE.Mesh(new THREE.PlaneGeometry(planeWidth, planeHeight,10,10), new THREE.MeshBasicMaterial({ color : 'red', visible : false}))
       
-        //  displacement.interactivePlane.position.y = 1
+      displacement.interactivePlane.position.z = 1
       scene.add(displacement.interactivePlane);
       displacement.raycaster = new THREE.Raycaster();
       displacement.screenCursor = new THREE.Vector2(999, 999);
@@ -284,14 +286,14 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ nbPlane, currentIndex }) => {
 
             // Resize interactive plane
             if (displacement.interactivePlane) {
-              const newGeometry = new THREE.PlaneGeometry(planeWidth, planeHeight, 10, 10);
+              const newGeometry = new THREE.PlaneGeometry(planeWidth, planeHeight, 50, 50);
               displacement.interactivePlane.geometry.dispose();
               displacement.interactivePlane.geometry = newGeometry;
             }
 
             // Resize all image planes
             planeRefs.current.forEach((plane, i) => {
-              const newGeometry = new THREE.PlaneGeometry(planeWidth, planeHeight, 10, 10);
+              const newGeometry = new THREE.PlaneGeometry(planeWidth, planeHeight, 50, 50);
               plane.geometry.dispose();
               plane.geometry = newGeometry;
 
