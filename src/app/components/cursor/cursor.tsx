@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
-import { usePathname } from 'next/navigation';
 
 export default function Cursor() {
   const [cursorState, setCursorState] = useState<'default' | 'hover-link' | 'hover-project'>('default');
@@ -10,7 +9,6 @@ export default function Cursor() {
   const textRef = useRef<HTMLSpanElement>(null);
   const haloRef = useRef<HTMLDivElement>(null);
 
-  const pathname = usePathname(); 
 
 
   useEffect(() => {
@@ -39,20 +37,15 @@ export default function Cursor() {
     };
 
     const elements = document.querySelectorAll('.hover-link, .hover-project');
-    elements.forEach((el) => {
-      el.addEventListener('mouseenter', handleMouseEnter);
-      el.addEventListener('mouseleave', handleMouseLeave);
-    });
-
-    window.addEventListener('mousemove', moveCursor);
+    document.addEventListener('mousemove', moveCursor);
+    document.addEventListener('mouseover', handleMouseEnter);
+    document.addEventListener('mouseout', handleMouseLeave);
 
     return () => {
-      window.removeEventListener('mousemove', moveCursor);
-      elements.forEach((el) => {
-        el.removeEventListener('mouseenter', handleMouseEnter);
-        el.removeEventListener('mouseleave', handleMouseLeave);
-      });
-    };
+      document.removeEventListener('mousemove', moveCursor);
+      document.removeEventListener('mouseover', handleMouseEnter);
+      document.removeEventListener('mouseout', handleMouseLeave);
+  };
   }, );
 
   // Animate style changes based on cursor state

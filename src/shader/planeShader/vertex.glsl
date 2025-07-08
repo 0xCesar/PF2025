@@ -33,7 +33,7 @@ void main() {
       newPosition.xy += radialDisplacement;
       newPosition.y += wave; */
 
-/**
+      /**
       // Refactor Simple
       vec2 center = vec2(0.5);
       vec2 offset = vUv - center;
@@ -52,7 +52,7 @@ void main() {
       float dist = length(offset);
 
       vec2 dir = dist > 0.0001 ? normalize(offset) : vec2(0.0);
-
+      
 
       float strength = clamp(1.0 - abs(uProgress - 0.5) * 2.0, 0.0, 1.0);
       float amount = strength * 0.2;
@@ -64,43 +64,7 @@ void main() {
 
       newPosition.xy += dir * (amount + wave);
     } 
-  /**  if ( uProgress > 0.7){
-         newPosition.x = position.x;
-        newPosition.y = position.y;
-    } */
+
 
     gl_Position = projectionMatrix * modelViewMatrix * vec4(newPosition, 1.0);
 }
-/*varying vec2 vUv;
-
-void main() {
-  vUv = uv;
-  gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-}*/
-
-
-/*
-uniform vec2 uFrequency;
-uniform float uTime;
-
-varying vec2 vUv;
-varying float vElevation;
-
-void main()
-{
-    vec4 modelPosition = modelMatrix * vec4(position, 1.0);
-
-    float elevation = sin(modelPosition.x * uFrequency.x  - uTime) * 0.1;
-    elevation += sin(modelPosition.x * uFrequency.x - uTime) * 0.1;
-
-    modelPosition.z += elevation;
-
-    vec4 viewPosition = viewMatrix * modelPosition;
-    vec4 projectedPosition = projectionMatrix * viewPosition;
-
-    gl_Position = projectedPosition;
-
-    vUv = uv;
-    vElevation = elevation;
-}
-*/

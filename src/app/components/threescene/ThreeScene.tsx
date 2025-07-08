@@ -56,12 +56,12 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ nbPlane, currentIndex }) => {
 
     gsap.to(plane.position, {
       y: targetY,
-      duration: 0.8,
+      duration: 0.5,
       ease: 'power3.inOut',
     });
    gsap.to(shaderMaterial.uniforms.uProgress, {
       value: 1,
-      duration: 0.8,
+      duration: 1.2,
       ease: 'power2.out',
      
   })

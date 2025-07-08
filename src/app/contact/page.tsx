@@ -24,7 +24,8 @@ export default function Contact() {
         </div>
         <div className='contact-image'>
           <Image 
-            src={'/assets-about/contactflower.png'}
+            src={'/assets-about/contactflower.png'} 
+            /*src={'/rose.png'}*/
             alt=''
             fill
             style={{ objectFit: 'cover' }}

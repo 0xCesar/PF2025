@@ -23,13 +23,16 @@ export default function Menu() {
     
 return <header className="nav">
                     <div className="nav-sub nav-sub-one">
-                    <div>
-                        <Link href={'/'} className="hover-link "><h2 className="firstmenuanim">César SAINT-LO</h2></Link>
+                    <Link href={'/'} className="hover-link ">
+                      
+                        <h2 className="firstmenuanim">César SAINT-LO</h2>
                         <div className="pre">
-                            <p className="spe firstmenuanim">frontend developper</p>
+                           <p className="spe firstmenuanim">frontend developper</p>
                         </div>
-                    </div>    
                     
+                    {/* Commentaire important */}
+                    </Link>
+                  
                     
                     <nav>
                         <ul>
