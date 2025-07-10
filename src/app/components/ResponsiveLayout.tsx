@@ -1,12 +1,19 @@
 "use client";
 
 import { useEffect, useState } from "react";
+
 import Menu from "./menu/menu";
 import Cursor from "./cursor/cursor";
-import LandingMobile from "./landingMobile/landingMobile"; // Adapte le chemin si besoin
+import LandingMobile from "./landingMobile/landingMobile"; 
+import ReactLenis, { useLenis } from "lenis/react";
+
+
+
 
 export default function ResponsiveLayout({ children }: { children: React.ReactNode }) {
   const [isMobile, setIsMobile] = useState(false);
+
+  
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth <= 768);
@@ -22,7 +29,10 @@ export default function ResponsiveLayout({ children }: { children: React.ReactNo
   return (
     <>
       <Menu />
-      {children}
+ 
+
+          {children}
+
       <Cursor />
     </>
   );

@@ -8,3 +8,10 @@
     width: calc((95vw / 12)*6);
     background-color: aqua;
 }
+.ref-img-size{
+  visibility: hidden;
+    position: absolute;
+    z-index: -1;
+    width: calc((95vw / 12) * 6);
+
+}

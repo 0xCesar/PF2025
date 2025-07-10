@@ -56,12 +56,12 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ nbPlane, currentIndex }) => {
 
     gsap.to(plane.position, {
       y: targetY,
-      duration: 0.5,
+      duration: 0.8,
       ease: 'power3.inOut',
     });
    gsap.to(shaderMaterial.uniforms.uProgress, {
       value: 1,
-      duration: 1.2,
+      duration: 1.0,
       ease: 'power2.out',
      
   })
@@ -345,6 +345,7 @@ useEffect(() => {
 
  
   return <div ref={containerRef} className='container-canvas   hover-project'>
+    <img src="/assets-img/canette.png" className='ref-img-size'/>
     <div ref={containerWidth} className='ref-container-size'></div>
   </div>
 

@@ -8,6 +8,8 @@ import Link from 'next/link';
 import { gsap } from 'gsap';
 import ThreeScene from "../threescene/ThreeScene";
 
+
+
 const projectsToBeShown:{
     title: string;
     slug: string;
@@ -43,10 +45,11 @@ export default function Projects() {
     let [index, setIndex] = useState(1);
     const [currentIndex, setCurrentIndex] = useState(0);
     const isScrollingRef = useRef(false);
-    let wheelTimeout: ReturnType<typeof setTimeout>;
+    const wheelTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
 
 
 
+  
 
     const nextProjet = () => {
       const projectsName = document.querySelectorAll('#projet-title > *');
@@ -62,8 +65,13 @@ export default function Projects() {
           }
 
         //  console.log(gap)
-          gsap.timeline().to(projectsName, { y: gap,  duration: 0.4, ease : "circ.inOut"},0)  
-           gsap.timeline().to(projectsNumber, { y: gap,  duration: 0.4, ease : "circ.inOut" },0) 
+          gsap.timeline().to(projectsName, { y: gap,  duration: 0.25, ease : "circ.inOut"},0)  
+           gsap.timeline().to(projectsNumber, 
+            { y: gap,
+              duration: 0.25,
+              ease : "circ.inOut",
+            
+             },0) 
 
           return prevIndex + 1;
         }
@@ -75,6 +83,7 @@ export default function Projects() {
           const newIndex = Math.min(prev + 1, projectsToBeShown.length - 1);
           return newIndex;
         });
+        //window.addEventListener("wheel", handleSceneWheel,  { passive: false });
     };
 
     const prevProjet = () => {
@@ -93,8 +102,12 @@ export default function Projects() {
       //  console.log(gap)
 
    
-        gsap.timeline().to(projectsName, { y: gap,  duration: 0.4, ease: "circ.inOut"},0)  
-        gsap.timeline().to(projectsNumber, { y: gap,  duration: 0.4, ease : "circ.inOut"},0)  
+        gsap.timeline().to(projectsName, { y: gap,  duration: 0.25, ease: "circ.inOut"},0)  
+        gsap.timeline().to(projectsNumber, { y: gap, 
+           duration: 0.25,
+           ease : "circ.inOut",
+            
+          },0)  
     
           return prevIndex - 1;
         }
@@ -105,30 +118,39 @@ export default function Projects() {
         const newIndex = Math.max(prev - 1, 0);
         return newIndex;
       });
+     //window.addEventListener("wheel", handleSceneWheel,  { passive: false });
     };
 
 
    
     const handleSceneWheel = (e: WheelEvent) => {
-          e.preventDefault();
+  if (isScrollingRef.current) {
+    e.preventDefault();
+    return;
+  }
 
-          if (isScrollingRef.current) return;
-          isScrollingRef.current = true;
+  isScrollingRef.current = true;
+  e.preventDefault();
 
-         // console.log(e.deltaY)
-          if (e.deltaY > 2.5) {
-            nextProjet();
-   
-          } else if (e.deltaY < -2.5) {
-            prevProjet();
-          }
+  console.log("triggered");
+  console.log(e);
 
-          clearTimeout(wheelTimeout);
-   
-          wheelTimeout = setTimeout(() => {
-             isScrollingRef.current = false;
-          }, 800);
-      };
+  const adjusted = e.deltaY / 2;
+
+  if (adjusted > 0.25) {
+    nextProjet();
+  } else if (adjusted < -0.25) {
+    prevProjet();
+
+  }
+
+  if (wheelTimeout.current) clearTimeout(wheelTimeout.current);
+  wheelTimeout.current = setTimeout(() => {
+    isScrollingRef.current = false;
+    console.log("timeout");
+  }, 1000); // tu peux ajuster cette durée si nécessaire
+};
+
 
     useEffect(() => {
 
@@ -142,6 +164,7 @@ export default function Projects() {
     
 
       const handleKeyDown = (e: KeyboardEvent) => {
+        
         if (e.key === "ArrowDown") {
           nextProjet(); 
         } else if (e.key === "ArrowUp") {
@@ -159,7 +182,7 @@ export default function Projects() {
     }, []); 
   
 
-    return <div className="page-container">
+    return <div className="page-container landing-container">
         {/*<div id="cachecache"></div>*/}
         <div className="project-number">
             <div id="number-project">
