@@ -148,7 +148,7 @@ export default function Projects() {
   wheelTimeout.current = setTimeout(() => {
     isScrollingRef.current = false;
     console.log("timeout");
-  }, 1000); // tu peux ajuster cette durée si nécessaire
+  }, 1000); // tu peux ajuster cette durée si nécessaire pour un comm
 };
 
 
