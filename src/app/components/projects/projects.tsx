@@ -207,7 +207,7 @@ export default function Projects() {
           ))}
         </div>
         
-        <div className="projet-image ">
+        <div className="projet-image hover-project">
           <Link href={`/projets/${projectsToBeShown[index - 1].slug}`}>
          
              <ThreeScene 

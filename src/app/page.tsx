@@ -11,15 +11,9 @@ export default function Home() {
 
   return (
     
-      <ReactLenis>
-          <div className="imposter-container">
-             <div className="imposter-scroll unposter-1"></div>
-             <div className="imposter-scroll unposter-2"></div>
-             <div className="imposter-scroll unposter-3"></div>
-          </div>
           <Projects />
-          <p className="endofscroll">END OF SCROLL</p>
-      </ReactLenis>
+         
+
     
 
   );

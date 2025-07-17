@@ -344,7 +344,7 @@ useEffect(() => {
 }, [currentIndex]);
 
  
-  return <div ref={containerRef} className='container-canvas   hover-project'>
+  return <div ref={containerRef} className='container-canvas   hover-projec'>
     <img src="/assets-img/canette.png" className='ref-img-size'/>
     <div ref={containerWidth} className='ref-container-size'></div>
   </div>
