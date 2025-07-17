@@ -7,7 +7,7 @@ import Link from "next/link";
 import { gsap } from 'gsap';
 
 export default function Menu() {
-
+  console.log("Menu render");
 
       useEffect(() => {
         console.log("test")
