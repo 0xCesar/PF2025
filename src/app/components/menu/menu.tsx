@@ -9,7 +9,7 @@ import { gsap } from 'gsap';
 export default function Menu() {
 
       useEffect(() => {
-        console.log("test")
+
         const bloc1 = document.getElementsByClassName('firstmenuanim')
         const bloc2 = document.getElementsByClassName('scondmenuanim')
 

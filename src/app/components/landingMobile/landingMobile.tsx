@@ -15,9 +15,9 @@ export default function LandingMobile() {
             <p>CESAR SAINT-LO</p>
         </header>
         <section>
-            <p>(visit this website on a desktop for full experience)</p>
+            <p className="target">(visit this website on a desktop for full experience)</p>
             <img alt="" src={'/assets-about/contactflower.png'}/>
-            <p>Cesar is a french developer that specialize in web developpement and integrating motion and 3D elements</p>
+            <p className="ntarget">Cesar is a french developer that specialize in web developpement and integrating motion and 3D elements</p>
         </section>
         <footer>
             <p>Social Link :</p>

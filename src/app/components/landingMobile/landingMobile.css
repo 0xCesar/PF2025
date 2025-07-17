@@ -15,12 +15,13 @@
     margin-right: 2.5rem;
 }
 .bodyMobile header{
-    margin-top: 2.5rem;
+    margin-block: 1.5rem;
     margin-left: 2.5rem;
+
 }
 .bodyMobile section{
     width: calc(100vw - 5rem);
-    margin-top: 2.5rem;
+   
     margin-left: 2.5rem;
 
 }
@@ -29,13 +30,20 @@
     height: 20vh;
     object-fit: cover;
     margin-top: 1.5rem;
-    margin-bottom: 2.5rem
 }
-.bodyMobile section p{
-    margin-top: 5vh;
-    font-weight: 600;
+.bodyMobile section .ntarget{
+
+    font-weight: 200;
+    margin-top: 1rem;
+}
+.bodyMobile section  .target{
+  font-weight: 600;
 }
 .bodyMobile footer p{
     margin-left: 2.5rem;
-    transform: translateY(1.4rem);
+        font-size: 1.1rem;
+}
+.bodyMobile footer ul{
+      transform: translateY(-1.1rem);
+      font-size: 1.1rem;
 }
