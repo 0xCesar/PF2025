@@ -11,8 +11,12 @@ export default function Home() {
 
   return (
     
+      
+       <div>
           <Projects />
-         
+        <ReactLenis>
+        </ReactLenis>
+       </div>
 
     
 
