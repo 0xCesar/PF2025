@@ -47,10 +47,6 @@ export default function Projects() {
     const isScrollingRef = useRef(false);
     const wheelTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-
-
-  
-
     const nextProjet = () => {
       const projectsName = document.querySelectorAll('#projet-title > *');
       const projectsNumber = document.querySelectorAll('#number-project > *');
@@ -121,7 +117,6 @@ export default function Projects() {
      //window.addEventListener("wheel", handleSceneWheel,  { passive: false });
     };
 
-
    
     const handleSceneWheel = (e: WheelEvent) => {
   if (isScrollingRef.current) {
@@ -153,18 +148,10 @@ export default function Projects() {
 
 
     useEffect(() => {
-
-      /*const projectContainerBig = document.getElementById("cachecache");
-      setTimeout(() => {
-        gsap.to(projectContainerBig, {top : '100vh', duration : 1.2,ease: "power2.inOut",})
-      }, 1500);*/
-    
       
       const projectsName = document.querySelectorAll('#projet-title > *');
     
-
-      const handleKeyDown = (e: KeyboardEvent) => {
-        
+      const handleKeyDown = (e: KeyboardEvent) => {    
         if (e.key === "ArrowDown") {
           nextProjet(); 
         } else if (e.key === "ArrowUp") {
@@ -208,7 +195,9 @@ export default function Projects() {
         </div>
         
         <div className="projet-image hover-project">
-          <Link href={`/projets/${projectsToBeShown[index - 1].slug}`}>
+          
+        </div>
+        <Link href={`/projets/${projectsToBeShown[index - 1].slug}`}>
          
              <ThreeScene 
              nbPlane={projectsToBeShown.length}
@@ -216,6 +205,5 @@ export default function Projects() {
              ></ThreeScene>
           </Link>
          
-        </div>
     </div>
     }

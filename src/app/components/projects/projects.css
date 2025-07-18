@@ -42,7 +42,7 @@
     height: 50vh;
     position: relative;
     bottom: 0;
-    transform: translateY(10%);
+    transform: translateY(-10%);
 }
 .projet-image img{
     bottom: 0 !important;
