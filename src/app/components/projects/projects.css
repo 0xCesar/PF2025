@@ -4,17 +4,16 @@
 }
 
 .landing-container{
+    position: relative;
 
     height: 70vh;
-    top: 0;
     align-items: flex-end;
     margin-top: 0;
     z-index: -1;
 }
 .project-number{
     position: absolute;
-
-    top: 50vh;
+    top: 50%;
     transform: translateY(-50%);
 }
 
@@ -35,6 +34,7 @@
   }
   .all-projects-titles-container{
     height: 2rem;
+    width: calc((95vw / 12) * 5);
     overflow: hidden;
   }
 .projet-image{

@@ -55,24 +55,20 @@ export default function Projects() {
   
         if (prevIndex < projectsToBeShown.length) {
 
-          let gap = '-100%'
+          let gap = '-100%';
+          let gapAdjusted = '-100%'; 
+
           if(prevIndex != 0){
-            gap = -100 * prevIndex + '%';
+            gap = -100 * prevIndex - 12 + '%';
+            gapAdjusted = -100 * prevIndex + '%';
           }
 
-        //  console.log(gap)
-          gsap.timeline().to(projectsName, { y: gap,  duration: 0.25, ease : "circ.inOut"},0)  
-           gsap.timeline().to(projectsNumber, 
-            { y: gap,
-              duration: 0.25,
-              ease : "circ.inOut",
-            
-             },0) 
+          gsap.timeline().to(projectsName, { y: gap,  duration: 0.25, ease : "circ.inOut"},0);  
+          gsap.timeline().to(projectsNumber, { y: gapAdjusted,duration: 0.25,ease : "circ.inOut",},0);
 
           return prevIndex + 1;
         }
 
-      //  console.log('no next project');
         return prevIndex;
       });
         setCurrentIndex(prev => {
@@ -91,29 +87,29 @@ export default function Projects() {
         if (prevIndex > 1) {
        // console.log(prevIndex)
         let gap = '0%'
+        let gapAdjusted = '0%'
         if(prevIndex != 2){
-          gap = (-100 * (prevIndex - 1)) + 100 + '%';
+          gap = (-100 * (prevIndex - 1)) + 100 - 12 + '%';
+          gapAdjusted = (-100 * (prevIndex - 1)) + 100  + '%';
         }
 
       //  console.log(gap)
 
    
-        gsap.timeline().to(projectsName, { y: gap,  duration: 0.25, ease: "circ.inOut"},0)  
-        gsap.timeline().to(projectsNumber, { y: gap, 
-           duration: 0.25,
-           ease : "circ.inOut",
-            
-          },0)  
+          gsap.timeline().to(projectsName, { y: gap,  duration: 0.25, ease: "circ.inOut"},0)  
+          gsap.timeline().to(projectsNumber, { y: gapAdjusted,  duration: 0.25, ease : "circ.inOut"},0)  
     
           return prevIndex - 1;
         }
-      //  console.log('no prev project');
+
         return prevIndex;
       });
+      
       setCurrentIndex(prev => {
         const newIndex = Math.max(prev - 1, 0);
         return newIndex;
       });
+
      //window.addEventListener("wheel", handleSceneWheel,  { passive: false });
     };
 
@@ -127,11 +123,10 @@ export default function Projects() {
   isScrollingRef.current = true;
   e.preventDefault();
 
-  console.log("triggered");
-  console.log(e);
+
 
   const adjusted = e.deltaY / 2;
-
+  console.log(adjusted)
   if (adjusted > 0.25) {
     nextProjet();
   } else if (adjusted < -0.25) {
@@ -142,8 +137,7 @@ export default function Projects() {
   if (wheelTimeout.current) clearTimeout(wheelTimeout.current);
   wheelTimeout.current = setTimeout(() => {
     isScrollingRef.current = false;
-    console.log("timeout");
-  }, 1000); // tu peux ajuster cette durée si nécessaire pour un comm
+  }, 1000); 
 };
 
 
@@ -194,16 +188,18 @@ export default function Projects() {
           ))}
         </div>
         
-        <div className="projet-image hover-project">
+ 
+        <Link className="projet-image" href={`/projets/${projectsToBeShown[index - 1].slug}`}>
+                     <Image 
+                      fill
+              style={{ objectFit: 'contain' }}
+                src={'/assets-img/' +projectsToBeShown[index-1].ref + '.png'} 
+                alt="" 
+                
+                className="hover-project " 
+            />
           
-        </div>
-        <Link href={`/projets/${projectsToBeShown[index - 1].slug}`}>
-         
-             <ThreeScene 
-             nbPlane={projectsToBeShown.length}
-             currentIndex={currentIndex}
-             ></ThreeScene>
-          </Link>
+        </Link>
          
     </div>
     }
