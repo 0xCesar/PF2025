@@ -8,37 +8,31 @@ import Link from 'next/link';
 import { gsap } from 'gsap';
 import ThreeScene from "../threescene/ThreeScene";
 
-
-
 const projectsToBeShown:{
     title: string;
     slug: string;
-    ref: string;
-   
-  }[]= [
-    {
-      title: "Canette 3D",
-      slug: "canette3D",
-      ref: "canette",
-    },
-    {
-    title: "Immersive Gallery",
-    slug: "immersiveGallery",
-    ref: "IMGA",
-    },
-   
-    {
-    title: "Init 2",
-    slug: "init2",
-    ref: "init",
-    },
-    {
-    title: "Portfolio Touzinaud",
-    slug: "portfoliotouzinaud",
-    ref: "pfval",
-    },
-    
-  ];
+    ref: string;}[]= [
+                      {
+                        title: "Canette 3D",
+                        slug: "canette3D",
+                        ref: "canette",
+                      },
+                      {
+                      title: "Immersive Gallery",
+                      slug: "immersiveGallery",
+                      ref: "IMGA",
+                      },                
+                      {
+                      title: "Init 2",
+                      slug: "init2",
+                      ref: "init",
+                      },
+                      {
+                      title: "Portfolio Touzinaud",
+                      slug: "portfoliotouzinaud",
+                      ref: "pfval",
+                      },                   
+];
   
 export default function Projects() {
 
@@ -71,10 +65,10 @@ export default function Projects() {
 
         return prevIndex;
       });
-        setCurrentIndex(prev => {
+      setCurrentIndex(prev => {
           const newIndex = Math.min(prev + 1, projectsToBeShown.length - 1);
           return newIndex;
-        });
+      });
         //window.addEventListener("wheel", handleSceneWheel,  { passive: false });
     };
 
@@ -83,9 +77,7 @@ export default function Projects() {
       const projectsNumber = document.querySelectorAll('#number-project > *');
 
       setIndex((prevIndex) => {
-        
         if (prevIndex > 1) {
-       // console.log(prevIndex)
         let gap = '0%'
         let gapAdjusted = '0%'
         if(prevIndex != 2){
@@ -93,9 +85,6 @@ export default function Projects() {
           gapAdjusted = (-100 * (prevIndex - 1)) + 100  + '%';
         }
 
-      //  console.log(gap)
-
-   
           gsap.timeline().to(projectsName, { y: gap,  duration: 0.25, ease: "circ.inOut"},0)  
           gsap.timeline().to(projectsNumber, { y: gapAdjusted,  duration: 0.25, ease : "circ.inOut"},0)  
     
@@ -109,42 +98,37 @@ export default function Projects() {
         const newIndex = Math.max(prev - 1, 0);
         return newIndex;
       });
-
      //window.addEventListener("wheel", handleSceneWheel,  { passive: false });
     };
 
    
     const handleSceneWheel = (e: WheelEvent) => {
-  if (isScrollingRef.current) {
-    e.preventDefault();
-    return;
-  }
+      if (isScrollingRef.current) {
+        e.preventDefault();
+        return;
+      }
 
-  isScrollingRef.current = true;
-  e.preventDefault();
+      isScrollingRef.current = true;
+      e.preventDefault();
+      console.log(e)
+      const adjusted = e.deltaY / 2;
+      console.log(adjusted)
+      if (adjusted > 0.25) {
+        nextProjet();
+      } else if (adjusted < -0.25) {
+        prevProjet();
+    }
 
-
-
-  const adjusted = e.deltaY / 2;
-  console.log(adjusted)
-  if (adjusted > 0.25) {
-    nextProjet();
-  } else if (adjusted < -0.25) {
-    prevProjet();
-
-  }
-
-  if (wheelTimeout.current) clearTimeout(wheelTimeout.current);
-  wheelTimeout.current = setTimeout(() => {
-    isScrollingRef.current = false;
-  }, 1000); 
+    if (wheelTimeout.current) clearTimeout(wheelTimeout.current);
+      wheelTimeout.current = setTimeout(() => {
+        isScrollingRef.current = false;
+    }, 250); 
 };
 
 
     useEffect(() => {
-      
       const projectsName = document.querySelectorAll('#projet-title > *');
-    
+  
       const handleKeyDown = (e: KeyboardEvent) => {    
         if (e.key === "ArrowDown") {
           nextProjet(); 
@@ -164,7 +148,8 @@ export default function Projects() {
   
 
     return <div className="page-container landing-container">
-        {/*<div id="cachecache"></div>*/}
+
+
         <div className="project-number">
             <div id="number-project">
             {projectsToBeShown.map((_, i) => (
@@ -175,10 +160,11 @@ export default function Projects() {
                 </p>
               ))}
             </div>
-            
             <p className="line"></p>
             <p>{projectsToBeShown.length.toString().padStart(2, '0')}</p>
         </div>
+
+
         <div className="all-projects-titles-container" id="projet-title">
 
           {projectsToBeShown.map((project, i) => (
@@ -190,7 +176,7 @@ export default function Projects() {
         
  
         <Link className="projet-image" href={`/projets/${projectsToBeShown[index - 1].slug}`}>
-                     <Image 
+            <Image 
                       fill
               style={{ objectFit: 'contain' }}
                 src={'/assets-img/' +projectsToBeShown[index-1].ref + '.png'} 
@@ -198,8 +184,7 @@ export default function Projects() {
                 
                 className="hover-project " 
             />
-          
         </Link>
          
     </div>
-    }
+}
