@@ -18,6 +18,8 @@ export default function Menu() {
         tl.fromTo(bloc1, { y: '100%' }, { y: 0, duration: 0.25, stagger: 0.15})
             .fromTo(bloc2, { y: '100%' }, { y: 0, duration: 0.25, stagger: 0.15 });
 
+        
+
       }, [])
 
     

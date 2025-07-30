@@ -9,9 +9,11 @@
 
     height: 80vh;
     width: 100%;
-
-    /*background: red;*/
+    pointer-events: auto;
+    /*background: red;
+   z-index: 400;*/
 }
+
 
 .ref-container-size{
     width: calc((95vw / 12)*6);
