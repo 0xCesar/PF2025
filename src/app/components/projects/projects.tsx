@@ -175,16 +175,24 @@ export default function Projects() {
         </div>
         
  
-        <Link className="projet-image" href={`/projets/${projectsToBeShown[index - 1].slug}`}>
+        {/**<Link  href={`/projets/${projectsToBeShown[index - 1].slug}`}>***/}
+        <div className="projet-image">
             <Image 
                       fill
-              style={{ objectFit: 'contain' }}
+              style={{ objectFit: 'contain', visibility : "hidden" }}
                 src={'/assets-img/' +projectsToBeShown[index-1].ref + '.png'} 
                 alt="" 
-                
+                id="refImage3D"
                 className="hover-project " 
             />
-        </Link>
+        </div>
+        
+        <ThreeScene 
+             nbPlane={projectsToBeShown.length}
+             currentIndex={currentIndex}
+        ></ThreeScene>
+          
+        {/**</Link>***/}
          
     </div>
 }

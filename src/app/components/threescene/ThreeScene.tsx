@@ -6,9 +6,6 @@ import { gsap } from 'gsap';
 import vertexShader from '@/shader/planeShader/vertex.glsl';
 import fragmentShader from '@/shader/planeShader/fragment.glsl';
 
-import vertexTrailShader from '@/shader/trailShader/vertex.glsl';
-import fragmentTrailShader from '@/shader/trailShader/fragment.glsl';
-import { contain } from 'three/src/extras/TextureUtils.js';
 
 const texturePaths = [
   '/assets-img/canette.png',
@@ -73,13 +70,23 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ nbPlane, currentIndex }) => {
     //console.log(planeRefs)
     if (typeof window !== 'undefined') {
       const scene = new THREE.Scene();
+
+      const refImage = document.getElementById("refImage3D");
+      //console.log(refImage.)
+
+     // const widthForPlane = containerRef.current?.offsetWidth ?? window.innerWidth;
+     
       const width = containerRef.current?.offsetWidth ?? window.innerWidth;
-      const widthForPlane = containerWidth.current?.offsetWidth ?? window.innerWidth;
       const height = containerRef.current?.offsetHeight ?? window.innerHeight;
       const extraHeight = height * 1.2;
   
-      const camera = new THREE.PerspectiveCamera(75, width / extraHeight, 0.1, 1000);
-  
+      //const camera = new THREE.PerspectiveCamera(70, width / height, 100, 2000);
+      //camera.position.z = 500;
+      //camera.fov = 2 * Math.atan( (window.innerHeight) / 500) * (180 / Math.PI);
+
+      const camera = new THREE.PerspectiveCamera( 70, width/height, 100, 2000 );
+      camera.position.z = 600;
+      camera.fov = 2*Math.atan( (height/2)/600 )* (180/Math.PI);
       const renderer = new THREE.WebGLRenderer({ alpha: true,antialias: true });
       
       renderer.setSize(width, extraHeight);
@@ -90,7 +97,7 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ nbPlane, currentIndex }) => {
       }
       containerRef.current?.appendChild(renderer.domElement);
 
-      camera.position.z = 5;
+
      
       if (typeof window !== 'undefined') {
         const aspect = width / height;
@@ -98,9 +105,16 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ nbPlane, currentIndex }) => {
         const targetVisibleHeight = 2 * Math.tan(fov / 2) * camera.position.z;
 
         const ratio = height / extraHeight;
+        /*
         const planeHeight = targetVisibleHeight * ratio;
         const planeWidth = planeHeight * aspect;
-            
+        */
+        const planeHeight = refImage?.getBoundingClientRect().height ;
+        const planeWidth = refImage?.getBoundingClientRect().width; 
+
+        /*console.log(planeWidth)
+        console.log(planeHeight)*/
+
         const loader = new THREE.TextureLoader();
 
         const flagTexture = loader.load('/assets-img/canette.png')
@@ -120,7 +134,7 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ nbPlane, currentIndex }) => {
       canvas.style.top = '0';
       canvas.style.left = '0';
       canvas.style.zIndex = '10';
-      //document.body.appendChild(canvas);
+      document.body.appendChild(canvas);
 
       displacement.canvas = canvas;
 
@@ -152,7 +166,8 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ nbPlane, currentIndex }) => {
 
         if(displacement.screenCursor){
             displacement.screenCursor.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
-            displacement.screenCursor.y = -((event.clientY - rect.top) / rect.height) * 2 + 1; //console.log(displacement.screenCursor)
+            displacement.screenCursor.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+            //console.log(displacement.screenCursor)
         }
 
       })
@@ -174,7 +189,7 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ nbPlane, currentIndex }) => {
               vertexShader,
               fragmentShader,
               transparent: true,
-            //  wireframe: true,
+            // wireframe: true,
               uniforms:
                 {
      
@@ -188,7 +203,7 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ nbPlane, currentIndex }) => {
       
           if( i != 0 ){
             plane.position.y = planeHeight * 1.2 * -i ;
-            console.log(plane.position.y);
+           // console.log(plane.position.y);
           }
           scene.add(plane);
           
@@ -212,10 +227,11 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ nbPlane, currentIndex }) => {
               displacement.raycaster?.setFromCamera(displacement.screenCursor, camera);
               const intersections = displacement.raycaster.intersectObject(displacement.interactivePlane)
               if(intersections.length)
-              {
+              { 
+
 
                   const uv = intersections[0].uv
-                //  console.log(uv)
+                  console.log(uv)
                   if(displacement.canvasCursor && uv && displacement.canvas  && displacement.canvasCursorPrevious){
 
                         const cursorDistance = displacement.canvasCursorPrevious.distanceTo(displacement.canvasCursor)
@@ -243,8 +259,7 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ nbPlane, currentIndex }) => {
                           glowSize,
                           glowSize)
                         
-                          // Texture
-
+                          // Texture update :
                           displacement.texture.needsUpdate = true;
                     }
                   }
@@ -270,42 +285,54 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ nbPlane, currentIndex }) => {
         renderer.render(scene, camera);
 
         const handleResize = () => {
+            const refImagResize = document.getElementById("refImage3D")?.getBoundingClientRect();
+
+            // Dimension du canvas : 
             const width = containerRef.current?.offsetWidth ?? window.innerWidth;
             const height = containerRef.current?.offsetHeight ?? window.innerHeight;
-            const extraHeight = height * 1.2;
 
-            renderer.setSize(width, extraHeight);
-            camera.aspect = width / extraHeight;
+            
+            const extraHeight = height * 1.2;
+       //     console.log(containerRef)
+            renderer.setSize(width, height);
+        //   camera.aspect = width / extraHeight;
             camera.updateProjectionMatrix();
 
             const fov = (camera.fov * Math.PI) / 180;
             const targetVisibleHeight = 2 * Math.tan(fov / 2) * camera.position.z;
             const ratio = height / extraHeight;
-            const planeHeight = targetVisibleHeight * ratio;
-            const planeWidth = planeHeight * (width / height);
+
+            const widthPlane = refImagResize?.width ?? window.innerWidth;
+            const heightPlane = refImagResize?.height ?? window.innerHeight;
+           // console.log(widthPlane, heightPlane)
+            /*const planeHeight = refImage?.getBoundingClientRect().height
+            const planeWidth = refImage?.getBoundingClientRect().width; */
 
             // Resize interactive plane
             if (displacement.interactivePlane) {
-              const newGeometry = new THREE.PlaneGeometry(planeWidth, planeHeight, 50, 50);
+              const newGeometry = new THREE.PlaneGeometry(widthPlane, heightPlane, 50, 50);
               displacement.interactivePlane.geometry.dispose();
               displacement.interactivePlane.geometry = newGeometry;
+              displacement.interactivePlane.position.x = refImage?.getBoundingClientRect().left - width/2 + refImage?.getBoundingClientRect().width / 2;
+           
             }
 
             // Resize all image planes
             planeRefs.current.forEach((plane, i) => {
-              const newGeometry = new THREE.PlaneGeometry(planeWidth, planeHeight, 50, 50);
+              const newGeometry = new THREE.PlaneGeometry(widthPlane, heightPlane, 50, 50);
               plane.geometry.dispose();
               plane.geometry = newGeometry;
 
               // Reposition according to new height
               plane.position.y = i === 0 ? 0 : planeHeight * 1.2 * -i;
+              plane.position.x = refImage?.getBoundingClientRect().left - width/2 + refImage?.getBoundingClientRect().width / 2;
             });
 
             animatePlanes(); // reposition based on currentIndex
           };
 
           window.addEventListener('resize', handleResize);
-          handleResize(); // Appelle immédiatement pour le premier sizing
+          handleResize();
 
           // Cleanup
           return () => {
@@ -345,7 +372,6 @@ useEffect(() => {
 
  
   return <div ref={containerRef} className='container-canvas   hover-projec'>
-    <img src="/assets-img/canette.png" className='ref-img-size'/>
     <div ref={containerWidth} className='ref-container-size'></div>
   </div>
 

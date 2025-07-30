@@ -1,7 +1,16 @@
 .container-canvas{
-    width: calc((95vw / 12)*6);
+  /*  width: calc((95vw / 12)*6);
     height: 50vh;
-        transform: translateY(-20%);
+        transform: translateY(-20%);*/
+    position: absolute;
+        
+    top: 0;
+    left: 0;
+
+    height: 80vh;
+    width: 100%;
+
+    /*background: red;*/
 }
 
 .ref-container-size{

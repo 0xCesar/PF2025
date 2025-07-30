@@ -2,7 +2,7 @@
     display: flex;
     padding-inline : 2.5vw;
     justify-content: space-between;
-    padding-top: 5vh;
+    padding-block: 5vh;
     font-family: 'Poppins', sans-serif;
 }
 
