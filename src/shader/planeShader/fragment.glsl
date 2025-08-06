@@ -9,7 +9,7 @@ void main() {
 
     vec3 textureColor = texture2D(uTexture, vUv).rgb;
 
-  //vec3 finalColor = mix(textureColor, vec3(1.0, 0.8, 0.8), uProgress * trailValue);
+   // vec3 finalColor = mix(textureColor, vec3(1.0, 0.8, 0.8), uProgress * trailValue);
 
    // vec3 baseColor = mix(textureColor, vec3(0.1, 0.0, 0.0), trailValue);
     gl_FragColor = vec4(textureColor, 1.0);

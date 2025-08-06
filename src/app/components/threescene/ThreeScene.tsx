@@ -6,12 +6,12 @@ import { gsap } from 'gsap';
 import vertexShader from '@/shader/planeShader/vertex.glsl';
 import fragmentShader from '@/shader/planeShader/fragment.glsl';
 
-
+// Paths to textures for each project
 const texturePaths = [
   '/assets-img/canette.png',
   '/assets-img/IMGA.png',
   '/assets-img/init.png',
-'/assets-img/pfval.png'
+  '/assets-img/pfval.png'
 ];
 
 interface ThreeSceneProps {
@@ -125,15 +125,16 @@ useEffect(() => {
       canvas.style.zIndex = '10';
 
       // uncomment to append canvas : debugging purpose
-      document.body.appendChild(canvas);
+      //document.body.appendChild(canvas);
 
+      displacement.canvas = canvas; // Getting our canvas stocked in the displacement object
 
-      displacement.canvas = canvas;
       const context = canvas.getContext('2d');
       if (!context) {
         throw new Error('Impossible de récupérer le contexte 2D du canvas');
       }
       displacement.context = context;
+     
       context.fillRect(0, 0, canvas.width, canvas.height);
       displacement.glowImage = new Image();
       displacement.glowImage.src = './debugging/glow.png';
@@ -141,17 +142,19 @@ useEffect(() => {
       displacement.interactivePlane.position.z = 1
       scene.add(displacement.interactivePlane);
 
+      // Raycaster and cursor setup
       displacement.raycaster = new THREE.Raycaster();
       displacement.screenCursor = new THREE.Vector2(999, 999);
       displacement.canvasCursor = new THREE.Vector2(999, 999);
       displacement.canvasCursorPrevious = new THREE.Vector2(999, 999);
       if(containerRef.current){
       const container = containerRef.current;
-
+       
       if(!container) return;
-      renderer.domElement.addEventListener('pointermove', handlePointerMove);
-
+      window.addEventListener('pointermove', handlePointerMove);
+       
       function handlePointerMove(event: PointerEvent) {
+       //console.log(event)
           const container = containerRef.current;
           if (!container) return;
           const rect = container.getBoundingClientRect();
@@ -166,7 +169,7 @@ useEffect(() => {
       displacement.texture.generateMipmaps = true;
       }
 
-
+      // Create planes projects with textures
       for(let i = 0; i < nbPlane; i++){
           const textureIndex = i % texturePaths.length; // Pour boucler si nbPlane > texturePaths.length
           const texture = loader.load(texturePaths[textureIndex]);
@@ -177,7 +180,7 @@ useEffect(() => {
               vertexShader,
               fragmentShader,
               transparent: true,
-              wireframe: true,
+              wireframe: false,
               uniforms:
                 {
                     uTime: { value: 0 },
@@ -186,18 +189,21 @@ useEffect(() => {
                     uProgress: { value: 0.0 }
                 }
             });
+
           const plane = new THREE.Mesh(planeGeometry, materialShader);
-      
           if( i != 0 && planeHeight){
             plane.position.y = planeHeight * 1.2 * -i ;
           }
           scene.add(plane);
           planeRefs.current[i] = plane;
         }
-
+        //Animition function 
         const clock = new THREE.Clock();
         const renderScene = () => {
-            const elapsedTime = clock.getElapsedTime()
+          
+            const elapsedTime = clock.getElapsedTime();
+
+            // Linking uniforms plane with time
             planeRefs.current.forEach((plane, i) => {
               if (plane) {
                 const shaderMaterial = plane.material as THREE.ShaderMaterial;
@@ -205,12 +211,13 @@ useEffect(() => {
               }
             });
 
+            // Displacement effect with cursor
             if(displacement.screenCursor && displacement.raycaster && displacement.interactivePlane){
               displacement.raycaster?.setFromCamera(displacement.screenCursor, camera);
               const intersections = displacement.raycaster.intersectObject(displacement.interactivePlane)
               if(intersections.length)
               { 
-                  console.log(intersections)
+                 // console.log(intersections)
                   const uv = intersections[0].uv
    
                   if(displacement.canvasCursor && uv && displacement.canvas  && displacement.canvasCursorPrevious){
@@ -225,6 +232,7 @@ useEffect(() => {
                         displacement.context.globalCompositeOperation = 'source-over'
                         displacement.context.globalAlpha = 0.1
                         displacement.context.fillRect(0, 0, displacement.canvas.width, displacement.canvas.height)
+                        
                         const alpha = Math.min(cursorDistance * 0.2, 1)
                         const glowSize = displacement.canvas.width * 0.25;
                         displacement.context.globalCompositeOperation = 'lighten';
@@ -234,11 +242,13 @@ useEffect(() => {
                           displacement.canvasCursor.y - glowSize * 0.5,
                           glowSize,
                           glowSize)
+                      
                         displacement.texture.needsUpdate = true;
                     }
                   }
               }
             }
+
           renderer.render(scene, camera);
           requestAnimationFrame(renderScene);
         };
@@ -250,7 +260,9 @@ useEffect(() => {
         renderScene();
         renderer.render(scene, camera);
 
-        const handleResize = () => {
+
+
+          const handleResize = () => {
             const refImagResize = document.getElementById("refImage3D")?.getBoundingClientRect();
 
             const width = containerRef.current?.offsetWidth ?? window.innerWidth;
@@ -288,15 +300,14 @@ useEffect(() => {
             });
 
             animatePlanes(); // reposition based on currentIndex
-};
-
+         };
+          handleResize(); // Initial resize to set up the scene correctly
           window.addEventListener('resize', handleResize);
-          handleResize();
+          
 
           // Cleanup
-      
            return () => {
-              window.removeEventListener('resize', handleResize);
+            window.removeEventListener('resize', handleResize);
               
             planeRefs.current.forEach((plane) => {
             if (plane) {
@@ -330,4 +341,5 @@ useEffect(() => {
 
     
 };
+
 export default ThreeScene;

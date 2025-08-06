@@ -111,11 +111,11 @@ export default function Projects() {
       isScrollingRef.current = true;
       e.preventDefault();
       console.log(e)
-      const adjusted = e.deltaY / 2;
+      const adjusted = e.deltaY / 10;
       console.log(adjusted)
-      if (adjusted > 0.25) {
+      if (adjusted > 5) {
         nextProjet();
-      } else if (adjusted < -0.25) {
+      } else if (adjusted < -5) {
         prevProjet();
     }
 
@@ -176,7 +176,7 @@ export default function Projects() {
         
  
         {/**<Link  href={`/projets/${projectsToBeShown[index - 1].slug}`}>***/}
-        <div className="projet-image">
+        <div className="projet-image  ">
             <Image 
                       fill
               style={{ objectFit: 'contain', visibility : "hidden" }}

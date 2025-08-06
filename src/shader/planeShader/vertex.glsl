@@ -8,7 +8,7 @@ void main() {
 
     float trailValue = texture2D(uTrail, uv).r;
 
-    float distortion = trailValue * 0.3;
+    float distortion = trailValue * 23.11;
 
     vec3 newPosition = position;
     newPosition.z += distortion * 2.5;
@@ -58,8 +58,8 @@ void main() {
       float amount = strength * 0.2;
 
  
-      float frequency = 35.0;     
-      float amplitude = 0.2;    
+      float frequency = 20.0;     
+      float amplitude = 8.0; 
       float wave = sin(dist * frequency - uProgress * 6.2831) * amplitude * strength;
 
       newPosition.xy += dir * (amount + wave);
