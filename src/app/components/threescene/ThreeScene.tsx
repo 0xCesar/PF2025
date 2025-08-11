@@ -1,7 +1,9 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import * as THREE from 'three';
 import './ThreeScene.css';
 import { gsap } from 'gsap';
+import {Pane} from 'tweakpane';
+import { useRouter } from 'next/navigation';
 
 import vertexShader from '@/shader/planeShader/vertex.glsl';
 import fragmentShader from '@/shader/planeShader/fragment.glsl';
@@ -12,6 +14,13 @@ const texturePaths = [
   '/assets-img/IMGA.png',
   '/assets-img/init.png',
   '/assets-img/pfval.png'
+];
+
+const linkPaths = [
+  '/projets/canette3D',
+  '/projets/immersiveGallery',
+  '/projets/init2',
+  '/projets/portfoliotouzinaud'
 ];
 
 interface ThreeSceneProps {
@@ -38,8 +47,13 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ nbPlane, currentIndex }) => {
   const sceneRef = useRef<THREE.Scene>(null);
   const cameraRef = useRef<THREE.Camera>(null)
   const rendererRef = useRef<THREE.WebGLRenderer>(null);
+  // Hover state management
+  const router = useRouter();
+  const isHoveringPlaneRef = useRef(false);
+  const [isHoveringPlane, setIsHoveringPlane] = useState(false);
 
- const animatePlanes = () => {
+
+  const animatePlanes = () => {
   const geometry = planeRefs.current[0]?.geometry as THREE.PlaneGeometry;
   const planeHeight = geometry?.parameters?.height;
 
@@ -57,12 +71,51 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ nbPlane, currentIndex }) => {
     });
    gsap.to(shaderMaterial.uniforms.uProgress, {
       value: 1,
-      duration: 1.0,
+      duration: 0.8,
       ease: 'power2.out',
   })
  
   });
   };
+
+  const handleHoverChange = (hovering: boolean) => {
+  setIsHoveringPlane(hovering);
+  };
+
+
+      function handlePointerClick(event: PointerEvent) {
+        if (!planeRefs.current.length) return;
+
+        const container = containerRef.current;
+        if (!container) return;
+        const rect = container.getBoundingClientRect();
+
+        // Position normalisée de la souris
+        const mouse = new THREE.Vector2(
+          ((event.clientX - rect.left) / rect.width) * 2 - 1,
+          -((event.clientY - rect.top) / rect.height) * 2 + 1
+        );
+
+        const raycaster = new THREE.Raycaster();
+        raycaster.setFromCamera(mouse, camera);
+
+        const intersects = raycaster.intersectObjects(planeRefs.current);
+        if (intersects.length > 0) {
+          // On récupère le mesh cliqué
+          const clickedPlane = intersects[0].object;
+          const index = planeRefs.current.indexOf(clickedPlane as THREE.Mesh);
+
+          if (index !== -1 && linkPaths[index]) {
+            router.push(linkPaths[index]); // Redirection Next.js
+          }
+        }
+      }
+
+
+useEffect(() => {
+  const newState = isHoveringPlane ? "hover-project" : "default";
+  window.dispatchEvent(new CustomEvent("cursor-state-change", { detail: newState }));
+}, [isHoveringPlane]);
 
 useEffect(() => {
   animatePlanes();
@@ -73,6 +126,43 @@ useEffect(() => {
 
 
     if (typeof window !== 'undefined') {
+
+      // Debuugin Purpose
+      const PARAMS = {
+          frequency: -10.5,
+          amplitude: 20.65,
+          uStrenghtRatio: 0.2,
+        };
+
+      const pane = new Pane();
+      // Comment to show tweaking panel
+      //pane.element.style.display = 'none';
+
+      pane.addBinding(PARAMS, 'frequency', {
+          min: -20,
+          max: 20,
+          step: 0.1
+        });
+      pane.addBinding(PARAMS, 'uStrenghtRatio', {
+          min: -10.0,
+          max: 20,
+          step: 0.1
+        });
+      pane.addBinding(PARAMS, 'amplitude', {
+          min: 0,
+          max: 100,
+        });
+
+      const btn = pane.addButton({
+        title: 'Start',
+        label: 'Animation',   // optional
+      });
+
+      btn.on('click', () => {
+        animatePlanes();
+      });
+   
+     
 
       // Initialize Three.js scene, loader
       const scene = new THREE.Scene();
@@ -152,7 +242,8 @@ useEffect(() => {
        
       if(!container) return;
       window.addEventListener('pointermove', handlePointerMove);
-       
+      window.addEventListener('pointerdown', handlePointerClick);
+
       function handlePointerMove(event: PointerEvent) {
        //console.log(event)
           const container = containerRef.current;
@@ -163,6 +254,7 @@ useEffect(() => {
             displacement.screenCursor.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
           }
       }
+
       displacement.texture = new THREE.CanvasTexture(displacement.canvas)
       displacement.texture.minFilter = THREE.LinearMipMapLinearFilter;
       displacement.texture.magFilter = THREE.LinearFilter;
@@ -186,7 +278,10 @@ useEffect(() => {
                     uTime: { value: 0 },
                     uTrail : new THREE.Uniform(displacement.texture),
                     uTexture: { value: texture },
-                    uProgress: { value: 0.0 }
+                    uProgress: { value: 0.0 },
+                    uFrequency: { value: PARAMS.frequency },
+                    uAmplitude: { value: PARAMS.amplitude },
+                    uStrenghtRatio : { value : PARAMS.uStrenghtRatio }
                 }
             });
 
@@ -197,8 +292,15 @@ useEffect(() => {
           scene.add(plane);
           planeRefs.current[i] = plane;
         }
+
+
+
+
         //Animition function 
         const clock = new THREE.Clock();
+        let rafId = 0;
+
+
         const renderScene = () => {
           
             const elapsedTime = clock.getElapsedTime();
@@ -208,6 +310,9 @@ useEffect(() => {
               if (plane) {
                 const shaderMaterial = plane.material as THREE.ShaderMaterial;
                 shaderMaterial.uniforms.uTime.value = elapsedTime;
+                shaderMaterial.uniforms.uFrequency.value = PARAMS.frequency;
+                shaderMaterial.uniforms.uAmplitude.value = PARAMS.amplitude;
+                 shaderMaterial.uniforms.uStrenghtRatio.value = PARAMS.uStrenghtRatio;
               }
             });
 
@@ -215,11 +320,28 @@ useEffect(() => {
             if(displacement.screenCursor && displacement.raycaster && displacement.interactivePlane){
               displacement.raycaster?.setFromCamera(displacement.screenCursor, camera);
               const intersections = displacement.raycaster.intersectObject(displacement.interactivePlane)
-              if(intersections.length)
+              if(intersections.length > 0)
               { 
+   
+                                    handleHoverChange(true);
+               /* Boucle bugger hovering plane ? 
+                 if (!isHoveringPlaneRef.current) {
+                
+                    isHoveringPlaneRef.current = true;
+                    window.dispatchEvent(new CustomEvent('cursor-state-change', { detail: 'hover-project' }));
+                  }else{
+                        isHoveringPlaneRef.current = false;
+                        window.dispatchEvent(new CustomEvent('cursor-state-change', { detail: 'default' }));
+                  }
+*/
+
+
                  // console.log(intersections)
                   const uv = intersections[0].uv
-   
+                  // Passing event : 
+                  
+
+                  // Update the canvas cursor position based on the intersection UV coordinates
                   if(displacement.canvasCursor && uv && displacement.canvas  && displacement.canvasCursorPrevious){
 
                         const cursorDistance = displacement.canvasCursorPrevious.distanceTo(displacement.canvasCursor)
@@ -246,6 +368,14 @@ useEffect(() => {
                         displacement.texture.needsUpdate = true;
                     }
                   }
+
+
+//                     if (isHoveringPlaneRef.current) 
+              }else{
+
+                 
+                    handleHoverChange(false);
+         
               }
             }
 
@@ -308,7 +438,9 @@ useEffect(() => {
           // Cleanup
            return () => {
             window.removeEventListener('resize', handleResize);
-              
+            window.removeEventListener('pointerdown', handlePointerClick);
+
+
             planeRefs.current.forEach((plane) => {
             if (plane) {
               scene.remove(plane);

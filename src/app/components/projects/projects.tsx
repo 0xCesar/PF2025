@@ -176,7 +176,8 @@ export default function Projects() {
         
  
         {/**<Link  href={`/projets/${projectsToBeShown[index - 1].slug}`}>***/}
-        <div className="projet-image  ">
+        <Link  href={`/projets/${projectsToBeShown[index - 1].slug}`}>
+        <div className="projet-image hover-project  ">
             <Image 
                       fill
               style={{ objectFit: 'contain', visibility : "hidden" }}
@@ -191,7 +192,7 @@ export default function Projects() {
              nbPlane={projectsToBeShown.length}
              currentIndex={currentIndex}
         ></ThreeScene>
-          
+        </Link>
         {/**</Link>***/}
          
     </div>

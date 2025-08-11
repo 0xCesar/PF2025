@@ -1,5 +1,11 @@
+// Trail map, progress time :
 uniform sampler2D uTrail;
 uniform float uProgress;
+
+// Wave uniform :
+uniform float uFrequency;
+uniform float uAmplitude;
+uniform float uStrenghtRatio;
 
 varying vec2 vUv;
 
@@ -55,11 +61,10 @@ void main() {
       
 
       float strength = clamp(1.0 - abs(uProgress - 0.5) * 2.0, 0.0, 1.0);
-      float amount = strength * 0.2;
+      float amount = strength * uStrenghtRatio;
 
- 
-      float frequency = 20.0;     
-      float amplitude = 8.0; 
+      float frequency = uFrequency;
+      float amplitude = uAmplitude;
       float wave = sin(dist * frequency - uProgress * 6.2831) * amplitude * strength;
 
       newPosition.xy += dir * (amount + wave);

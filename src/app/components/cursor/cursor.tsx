@@ -9,6 +9,18 @@ export default function Cursor() {
   const textRef = useRef<HTMLSpanElement>(null);
   const haloRef = useRef<HTMLDivElement>(null);
 
+    useEffect(() => {
+      const handleCursorStateChange = (e: Event) => {
+        const customEvent = e as CustomEvent<"default" | "hover-link" | "hover-project">;
+        setCursorState(customEvent.detail);
+        console.log('Cursor state changed:', customEvent.detail);
+      };
+
+      window.addEventListener("cursor-state-change", handleCursorStateChange);
+      return () => {
+        window.removeEventListener("cursor-state-change", handleCursorStateChange);
+      };
+    }, []);
 
 
   useEffect(() => {
