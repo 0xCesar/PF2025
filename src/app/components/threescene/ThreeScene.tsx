@@ -47,6 +47,8 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ nbPlane, currentIndex }) => {
   const sceneRef = useRef<THREE.Scene>(null);
   const cameraRef = useRef<THREE.Camera>(null)
   const rendererRef = useRef<THREE.WebGLRenderer>(null);
+  const displacement: Partial<Displacement> = {};
+  
   // Hover state management
   const router = useRouter();
   const isHoveringPlaneRef = useRef(false);
@@ -83,35 +85,6 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ nbPlane, currentIndex }) => {
   };
 
 
-      function handlePointerClick(event: PointerEvent) {
-        if (!planeRefs.current.length) return;
-
-        const container = containerRef.current;
-        if (!container) return;
-        const rect = container.getBoundingClientRect();
-
-        // Position normalisée de la souris
-        const mouse = new THREE.Vector2(
-          ((event.clientX - rect.left) / rect.width) * 2 - 1,
-          -((event.clientY - rect.top) / rect.height) * 2 + 1
-        );
-
-        const raycaster = new THREE.Raycaster();
-        raycaster.setFromCamera(mouse, camera);
-
-        const intersects = raycaster.intersectObjects(planeRefs.current);
-        if (intersects.length > 0) {
-          // On récupère le mesh cliqué
-          const clickedPlane = intersects[0].object;
-          const index = planeRefs.current.indexOf(clickedPlane as THREE.Mesh);
-
-          if (index !== -1 && linkPaths[index]) {
-            router.push(linkPaths[index]); // Redirection Next.js
-          }
-        }
-      }
-
-
 useEffect(() => {
   const newState = isHoveringPlane ? "hover-project" : "default";
   window.dispatchEvent(new CustomEvent("cursor-state-change", { detail: newState }));
@@ -120,6 +93,30 @@ useEffect(() => {
 useEffect(() => {
   animatePlanes();
 }, [currentIndex]);
+useEffect(() => {
+  const handleClick = () => {
+    if (!displacement.screenCursor || !cameraRef.current || !sceneRef.current) return;
+
+    // Détecter quel plane est cliqué
+    displacement.raycaster.setFromCamera(displacement.screenCursor, cameraRef.current);
+    const intersects = displacement.raycaster.intersectObjects(planeRefs.current);
+
+    if (intersects.length > 0) {
+      // Récupérer l'index du plane
+      const clickedPlane = intersects[0].object;
+      const planeIndex = planeRefs.current.indexOf(clickedPlane as THREE.Mesh);
+
+      if (planeIndex !== -1) {
+        const targetPath = linkPaths[planeIndex];
+        console.log("Redirection vers :", targetPath);
+        window.location.href = targetPath; // ou router.push(targetPath) si tu veux Next.js
+      }
+    }
+  };
+
+  window.addEventListener("click", handleClick);
+  return () => window.removeEventListener("click", handleClick);
+}, []);
 
  
   useEffect(() => {
@@ -201,7 +198,7 @@ useEffect(() => {
       const planeWidth =  refDim.width; 
 
     
-      const displacement: Partial<Displacement> = {};
+      
       const canvas = document.createElement('canvas');
 
       // Set up the canvas for displacement effect
@@ -242,8 +239,7 @@ useEffect(() => {
        
       if(!container) return;
       window.addEventListener('pointermove', handlePointerMove);
-      window.addEventListener('pointerdown', handlePointerClick);
-
+       
       function handlePointerMove(event: PointerEvent) {
        //console.log(event)
           const container = containerRef.current;
@@ -255,6 +251,7 @@ useEffect(() => {
           }
       }
 
+      
       displacement.texture = new THREE.CanvasTexture(displacement.canvas)
       displacement.texture.minFilter = THREE.LinearMipMapLinearFilter;
       displacement.texture.magFilter = THREE.LinearFilter;
@@ -438,9 +435,7 @@ useEffect(() => {
           // Cleanup
            return () => {
             window.removeEventListener('resize', handleResize);
-            window.removeEventListener('pointerdown', handlePointerClick);
-
-
+              
             planeRefs.current.forEach((plane) => {
             if (plane) {
               scene.remove(plane);
