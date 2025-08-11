@@ -48,7 +48,7 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ nbPlane, currentIndex }) => {
   const cameraRef = useRef<THREE.Camera>(null)
   const rendererRef = useRef<THREE.WebGLRenderer>(null);
   const displacement: Partial<Displacement> = {};
-  
+
   // Hover state management
   const router = useRouter();
   const isHoveringPlaneRef = useRef(false);
@@ -95,7 +95,7 @@ useEffect(() => {
 }, [currentIndex]);
 useEffect(() => {
   const handleClick = () => {
-    if (!displacement.screenCursor || !cameraRef.current || !sceneRef.current) return;
+    if (!displacement.screenCursor || !cameraRef.current || !sceneRef.current || !displacement.raycaster) return;
 
     // Détecter quel plane est cliqué
     displacement.raycaster.setFromCamera(displacement.screenCursor, cameraRef.current);
