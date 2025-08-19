@@ -299,7 +299,7 @@ useEffect(() => {
 
 
         const renderScene = () => {
-          
+            console.log('Rendering scene...');
             const elapsedTime = clock.getElapsedTime();
 
             // Linking uniforms plane with time
@@ -377,7 +377,8 @@ useEffect(() => {
             }
 
           renderer.render(scene, camera);
-          requestAnimationFrame(renderScene);
+          rafId = requestAnimationFrame(renderScene);
+        //  requestAnimationFrame(renderScene);
         };
 
         sceneRef.current = scene;
@@ -434,6 +435,7 @@ useEffect(() => {
 
           // Cleanup
            return () => {
+             cancelAnimationFrame(rafId); // stop raf loop
             window.removeEventListener('resize', handleResize);
               
             planeRefs.current.forEach((plane) => {
@@ -455,6 +457,8 @@ useEffect(() => {
             });
             planeRefs.current = [];
             renderer.dispose();
+            containerRef.current?.removeChild(renderer.domElement); // 👈 enlever canvas
+ 
           };
        
   
