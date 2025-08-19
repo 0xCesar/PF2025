@@ -135,7 +135,7 @@ useEffect(() => {
       // Comment to show tweaking panel
       //pane.element.style.display = 'none';
 
-      pane.addBinding(PARAMS, 'frequency', {
+      /*pane.addBinding(PARAMS, 'frequency', {
           min: -20,
           max: 20,
           step: 0.1
@@ -157,7 +157,7 @@ useEffect(() => {
 
       btn.on('click', () => {
         animatePlanes();
-      });
+      }); */
    
      
 
@@ -215,7 +215,7 @@ useEffect(() => {
       //document.body.appendChild(canvas);
 
       displacement.canvas = canvas; // Getting our canvas stocked in the displacement object
-
+      //Branche
       const context = canvas.getContext('2d');
       if (!context) {
         throw new Error('Impossible de récupérer le contexte 2D du canvas');
@@ -299,7 +299,6 @@ useEffect(() => {
 
 
         const renderScene = () => {
-            console.log('Rendering scene...');
             const elapsedTime = clock.getElapsedTime();
 
             // Linking uniforms plane with time
