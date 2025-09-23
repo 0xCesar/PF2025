@@ -133,7 +133,7 @@ useEffect(() => {
 
       const pane = new Pane();
       // Comment to show tweaking panel
-      //pane.element.style.display = 'none';
+      pane.element.style.display = 'none';
 
       pane.addBinding(PARAMS, 'frequency', {
           min: -20,
@@ -299,7 +299,7 @@ useEffect(() => {
 
 
         const renderScene = () => {
-            console.log('Rendering scene...');
+          /*  console.log('Rendering scene...');*/
             const elapsedTime = clock.getElapsedTime();
 
             // Linking uniforms plane with time
@@ -309,30 +309,20 @@ useEffect(() => {
                 shaderMaterial.uniforms.uTime.value = elapsedTime;
                 shaderMaterial.uniforms.uFrequency.value = PARAMS.frequency;
                 shaderMaterial.uniforms.uAmplitude.value = PARAMS.amplitude;
-                 shaderMaterial.uniforms.uStrenghtRatio.value = PARAMS.uStrenghtRatio;
+                shaderMaterial.uniforms.uStrenghtRatio.value = PARAMS.uStrenghtRatio;
               }
             });
 
             // Displacement effect with cursor
             if(displacement.screenCursor && displacement.raycaster && displacement.interactivePlane){
+              
               displacement.raycaster?.setFromCamera(displacement.screenCursor, camera);
               const intersections = displacement.raycaster.intersectObject(displacement.interactivePlane)
               if(intersections.length > 0)
-              { 
+              { console.log('je passe dedans');
    
                                     handleHoverChange(true);
-               /* Boucle bugger hovering plane ? 
-                 if (!isHoveringPlaneRef.current) {
-                
-                    isHoveringPlaneRef.current = true;
-                    window.dispatchEvent(new CustomEvent('cursor-state-change', { detail: 'hover-project' }));
-                  }else{
-                        isHoveringPlaneRef.current = false;
-                        window.dispatchEvent(new CustomEvent('cursor-state-change', { detail: 'default' }));
-                  }
-*/
-
-
+        
                  // console.log(intersections)
                   const uv = intersections[0].uv
                   // Passing event : 
@@ -365,12 +355,15 @@ useEffect(() => {
                         displacement.texture.needsUpdate = true;
                     }
                   }
-
-
-//                     if (isHoveringPlaneRef.current) 
               }else{
 
-                 
+                  
+                  if(displacement.context && displacement.canvas && displacement.texture){
+                    
+                     displacement.context.globalCompositeOperation = 'source-over'
+                     displacement.context.fillRect(0, 0, displacement.canvas.width, displacement.canvas.height)
+                  displacement.texture.needsUpdate = true;
+                }
                     handleHoverChange(false);
          
               }
@@ -395,14 +388,20 @@ useEffect(() => {
 
             const width = containerRef.current?.offsetWidth ?? window.innerWidth;
             const height = containerRef.current?.offsetHeight ?? window.innerHeight;
+            console.log("Resizing to:", width, height);
 
-            const extraHeight = height * 1.2;
+            if (camera instanceof THREE.PerspectiveCamera) {
+              camera.aspect = width / height;
+              camera.fov = 2 * Math.atan((height / 2) / camera.position.z) * (180 / Math.PI); // si tu veux garder ton calcul dynamique
+              camera.updateProjectionMatrix();
+            }
+
             renderer.setSize(width, height);
             camera.updateProjectionMatrix();
 
             const widthPlane = refImagResize?.width ?? window.innerWidth;
             const heightPlane = refImagResize?.height ?? window.innerHeight;
-
+            console.log("Resizing to:", widthPlane, heightPlane);
             if (displacement.interactivePlane) {
               const newGeometry = new THREE.PlaneGeometry(widthPlane, heightPlane, 50, 50);
               displacement.interactivePlane.geometry.dispose();
@@ -415,8 +414,9 @@ useEffect(() => {
 
             // Resize all image planes
             planeRefs.current.forEach((plane, i) => {
-              const newGeometry = new THREE.PlaneGeometry(widthPlane, heightPlane, 50, 50);
               plane.geometry.dispose();
+              const newGeometry = new THREE.PlaneGeometry(widthPlane, heightPlane, 50, 50);
+              console.log("New plane geometry:", newGeometry);
               plane.geometry = newGeometry;
 
               // Reposition according to new height

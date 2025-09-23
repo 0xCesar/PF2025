@@ -39,7 +39,7 @@ return <header className="nav">
                     <nav>
                         <ul>
                             <li className="hover-link "><Link className="scondmenuanim" href={'/about'}>About</Link></li>
-                            <li className="hover-link "><Link className="scondmenuanim" href={'/labs'}>Labs</Link></li>
+                            {/*<li className="hover-link "><Link className="scondmenuanim" href={'/labs'}>Labs</Link></li>*/}
                             <li className="hover-link "><Link className="scondmenuanim" href={'/contact'}>Contact</Link></li>
                         </ul>
                     </nav>
