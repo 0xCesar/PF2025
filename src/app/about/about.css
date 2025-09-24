@@ -20,11 +20,16 @@
        font-size: 3rem;
     text-transform: uppercase;
     font-weight: bold;
-
+    margin-bottom: 2rem;
 }
-
+.about-title span {
+  display: block;      
+  height: 3rem;
+  line-height: 3rem;
+  overflow: hidden;
+}
 .about-info p{
-    margin-top: 2rem;
+
     width: calc((95vw / 12) * 3);
 }
 
