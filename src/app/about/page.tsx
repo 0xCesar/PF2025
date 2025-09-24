@@ -15,11 +15,14 @@ const poppins = Poppins({
 
 export default function About() {
 
-    const titleRef = useRef(null);
+   const titleRef = useRef<HTMLHeadingElement | null>(null);
+
     const textRef = useRef(null);
     const textRef2 = useRef(null);
   
     useEffect(() => {
+    if (!titleRef.current) return; // sécurité
+
     const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
     
     const children = Array.from(titleRef.current.children);
