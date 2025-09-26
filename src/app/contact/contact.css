@@ -1,26 +1,14 @@
-
-.contact-container{
-    margin-top: 10vh;
-    padding-inline: 2.5vw;
-    width: 95vw;
-    display : flex;
-    justify-content : space-between;
-    font-family: var(--font-poppins), sans-serif;
-}
-
-.contact-image{
-    width: calc((95vw / 12)*6);
-    height: 50vh;
-    background: black;
-    position: relative;
-}
-.contact-content{
-    width: calc((95vw / 12)*4.5);
-}
 .contact-content h3{
     font-size: 3rem;
     text-transform: uppercase;
     font-weight: bold;
+}
+.contact-container{
+    margin-top: 5vh;
+    padding-inline: 2.5vw;
+    width: 95vw;
+
+    font-family: var(--font-poppins), sans-serif;
 }
 .contact-content p{
     margin-top: 1.5vh;
@@ -29,4 +17,36 @@
     color: black;
         margin-top: 1.5vh;
         display: inline-block;
+        margin-bottom: 5vh;
+}
+.contact-image{
+    width: calc((95vw / 12)*12);
+    height: 30vh;
+    background: black;
+    position: relative;
+}
+
+@media (min-width: 768px){
+.contact-container{
+    margin-top: 10vh;
+    display : flex;
+    justify-content : space-between;
+    font-family: var(--font-poppins), sans-serif;
+}
+
+.contact-image{
+    width: calc((95vw / 12)*6);
+    height: 50vh;
+}
+
+
+.contact-content{
+    width: calc((95vw / 12)*4.5);
+    
+}
+.contact-content h3{
+   /* font-size: 3rem; */
+}
+
+
 }

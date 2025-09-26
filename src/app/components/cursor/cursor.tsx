@@ -8,6 +8,17 @@ export default function Cursor() {
   const cursorRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLSpanElement>(null);
   const haloRef = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
 
     useEffect(() => {
       const handleCursorStateChange = (e: Event) => {
@@ -112,7 +123,9 @@ export default function Cursor() {
     }
     
   }, [cursorState]);
-
+    if (isMobile) {
+    return ;
+  }
   return (
     <div
       ref={cursorRef}

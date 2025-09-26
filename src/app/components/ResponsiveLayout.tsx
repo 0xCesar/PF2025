@@ -21,10 +21,10 @@ export default function ResponsiveLayout({ children }: { children: React.ReactNo
     window.addEventListener("resize", checkMobile);
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
-
+/*
   if (isMobile) {
     return <LandingMobile />;
-  }
+  }*/
 
   return (
     <>
