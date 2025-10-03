@@ -65,8 +65,9 @@ export default function About() {
               
               <p ref={textRef}>
               Hi, I'm César, a freelancer. I love to build websites that are clean, responsive, with a touch of motion</p>
-              <br/><br/>
+              <br/>
               <p ref={textRef2}> I’m always looking to take on new challenges. Whether it’s collaborating with a team or handling a solo project, I care about delivering work that’s solid and well-thought-out. </p>
+                <br/>   <br/>
             </div>
           
             <div className="about-image">

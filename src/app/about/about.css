@@ -1,38 +1,3 @@
-.about-container{
-    margin-top: 10vh;
-    padding-inline: 2.5vw;
-    width: 95vw;
-    display : flex;
-    justify-content : space-between;
-    font-family: var(--font-poppins), sans-serif;
-}
-
-.about-info{
-    width: calc((95vw / 12)*5);
-    display: flex;
-    flex-direction: column;
-    align-items: end;
-    text-align: end;
-   
-  }
-
-.about-info h3{
-       font-size: 3rem;
-    text-transform: uppercase;
-    font-weight: bold;
-    margin-bottom: 2rem;
-}
-.about-title span {
-  display: block;      
-  height: 3rem;
-  line-height: 3rem;
-  overflow: hidden;
-}
-.about-info p{
-
-    width: calc((95vw / 12) * 3);
-}
-
 
 .about-image{
     width: calc((95vw / 12)*6);
@@ -47,20 +12,93 @@
     position: relative;
 
 }
-.about-image-1 img{
-    height : 50vh;
+
+.about-container{
+
+    padding-inline: 2.5vw;
+    width: 95vw;
+    font-family: var(--font-poppins), sans-serif;
 }
+
+.about-info h3{
+       font-size: 2.5rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-bottom: 2rem;
+}
+
+.about-image{
+    width: calc((95vw / 12)*12);
+    height: 30vh;
+    position: relative;
+    display : flex;
+    justify-content : space-between;
+}
+
+
+
+
 .about-image-1 p {
     position : absolute;
     bottom : -1.2rem;
 }
-
-.about-image-2{
-    width: calc(((95vw / 12)*3.5) - 10px);
+.about-image-1{
+    width: calc((95vw / 12)*5.5);
     position: relative;
-    
-    height: 30vh;
+
+}
+.about-image-2{
+    width: calc(((95vw / 12)*6.5) - 10px);
+    position: relative;
+    height: 20vh;
 }
 .object-cover{
     object-fit: cover;
+}
+.about-info{
+     text-align: end;
+}
+
+@media (min-width: 768px){
+
+.about-container{
+    display : flex;
+    justify-content : space-between;
+    margin-top: 10vh;
+}
+.about-info{
+    width: calc((95vw / 12)*5);
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+   
+   
+  }
+
+  .about-info h3{
+       font-size: 3rem;
+    }
+
+.about-title span {
+  display: block;      
+  height: 3rem;
+  line-height: 3rem;
+  overflow: hidden;
+}
+.about-info p{
+
+    width: calc((95vw / 12) * 3);
+}
+
+.about-image{
+    width: calc((95vw / 12)*6);
+    height: 50vh;
+}
+.about-image-1{
+    width: calc((95vw / 12)*2.5);
+}
+.about-image-2{
+    width: calc(((95vw / 12)*3.5) - 10px);
+    height: 30vh;
+}
 }

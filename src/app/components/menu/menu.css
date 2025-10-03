@@ -13,7 +13,7 @@
 }
 
 .nav-sub-one{
-    width: calc((95vw / 12)*5);
+    width: calc((95vw / 12)*12);
 }
 
 .nav-sub-two{
@@ -55,4 +55,10 @@
 .pre{overflow: hidden;}
 .scondmenuanim{
     display: inline-block;
+}
+@media (min-width: 768px){
+.nav-sub-one{
+    width: calc((95vw / 12)*5);
+}
+
 }

@@ -7,6 +7,16 @@ import Link from "next/link";
 import { gsap } from 'gsap';
 
 export default function Menu() {
+     const [isMobile, setIsMobile] = useState(false);
+
+  
+
+        useEffect(() => {
+            const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+            checkMobile();
+            window.addEventListener("resize", checkMobile);
+            return () => window.removeEventListener("resize", checkMobile);
+        }, []);
 
       useEffect(() => {
 
@@ -22,7 +32,25 @@ export default function Menu() {
 
       }, [])
 
-    
+if (isMobile) {
+    return <header className="nav">
+                    <div className="nav-sub nav-sub-one">
+                    <Link href={'/'} className="hover-link ">
+                      
+                        <h2 className="firstmenuanim">César SAINT-LO</h2>
+                        <div className="pre">
+                           <p className="spe firstmenuanim">frontend developper</p>
+                        </div>
+                    
+                    </Link>
+                  
+                    
+                    <nav>   
+                        <p>MENU</p>
+                    </nav>
+                    </div>
+            </header>;
+}
 return <header className="nav">
                     <div className="nav-sub nav-sub-one">
                     <Link href={'/'} className="hover-link ">

@@ -1,10 +1,10 @@
 .contact-content h3{
-    font-size: 3rem;
+    font-size: 2.5rem;
     text-transform: uppercase;
     font-weight: bold;
 }
 .contact-container{
-    margin-top: 5vh;
+
     padding-inline: 2.5vw;
     width: 95vw;
 
@@ -33,7 +33,9 @@
     justify-content : space-between;
     font-family: var(--font-poppins), sans-serif;
 }
-
+.contact-content h3{
+    font-size: 3rem;
+}
 .contact-image{
     width: calc((95vw / 12)*6);
     height: 50vh;
