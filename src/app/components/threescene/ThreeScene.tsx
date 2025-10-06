@@ -54,6 +54,16 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ nbPlane, currentIndex }) => {
   const isHoveringPlaneRef = useRef(false);
   const [isHoveringPlane, setIsHoveringPlane] = useState(false);
 
+  const [isMobile, setIsMobile] = useState(false);
+  
+    
+  
+  useEffect(() => {
+      const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+      checkMobile();
+      window.addEventListener("resize", checkMobile);
+      return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   const animatePlanes = () => {
   const geometry = planeRefs.current[0]?.geometry as THREE.PlaneGeometry;
@@ -118,7 +128,20 @@ useEffect(() => {
   return () => window.removeEventListener("click", handleClick);
 }, []);
 
- 
+const getPlaneDimensions = (isMobile: boolean, refDim: DOMRect) => {
+  if (isMobile) {
+    return {
+      width: refDim.width * 0.8,   // tu peux adapter le ratio
+      height: refDim.height * 0.8, // par exemple plus petit sur mobile
+    };
+  } else {
+    return {
+      width: refDim.width,
+      height: refDim.height,
+    };
+  }
+};
+
   useEffect(() => {
 
 
@@ -193,9 +216,11 @@ useEffect(() => {
 
 
       // Set up 
-      const refDim = refImage?.getBoundingClientRect() || { width: 500, height: 300 };
-      const planeHeight = refDim.height;
-      const planeWidth =  refDim.width; 
+      const rect = new DOMRect(0, 0, 500, 300);
+      const refDim = refImage?.getBoundingClientRect() || rect;
+      
+     const { width: planeWidth, height: planeHeight } = getPlaneDimensions(isMobile, refDim);
+
 
     
       
