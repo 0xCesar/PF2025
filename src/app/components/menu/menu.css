@@ -2,22 +2,22 @@
    position: absolute;
    z-index: 99;
     width: 100vw;
-    height: 100vh;
-    top: -100vh;
+    height: 100svh;
+    top: -100svh;
     left: 0;
     background-color: rgb(11, 11, 11);
     
 }
 .menu-mobil > ul{
    position: absolute;
-    top: 50vh;
+    top: 50svh;
     transform: translateY(-50%);
     width: 95vw;
     padding-inline: 2.5vw;
     display: flex
 ;
     flex-direction: column;
-    gap: 5vh;
+    gap: 5svh;
     font-size: 2rem;
     text-transform: uppercase;
 }
@@ -32,7 +32,7 @@ align-self: end;
 }
 #menu-mobil .link-ext-mobil{
     position: absolute;
-    bottom: 5vh;
+    bottom: 5svh;
     right: 2.5vw;
         width: 95vw;
     display: flex

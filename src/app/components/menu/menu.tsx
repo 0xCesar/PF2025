@@ -44,7 +44,7 @@ export default function Menu() {
       });
     } else {
       gsap.to(menuRef.current, {
-        top: "-100vh",
+        top: "-100svh",
         duration: 0.6,
         ease: "power3.in",
       });
