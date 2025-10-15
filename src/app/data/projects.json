@@ -1,0 +1,45 @@
+[
+  {
+    "title": "Canette 3D",
+    "slug": "canette3D",
+    "ref": "/canette3D",
+    "description":
+      "This was a personal project created during my studies, following Bruno Simon’s “Three.js Journey” course. I wanted to challenge myself and explore what I could build by combining 3D modeling in Blender with interactive web development using Three.js and GSAP.",
+    "context": "School Project",
+    "skills": "Web design, front-end development, motion design (GSAP), 3D modeling (Blender), 3D integration (Three.js)",
+    "date": "12/04/2023",
+
+    "preview": 1
+  },
+  {
+    "title": "Immersive Gallery",
+    "slug": "immersiveGallery",
+    "ref": "/immersiveGallery",
+    "description":
+      "Immersive Gallery is a virtual museum built within a web page. As users scroll, they navigate through the space, revealing artworks and collections. I was responsible for integrating 3D elements and building the interactive experience using Babylon.js.",
+    "context": "Internship",
+    "skills": "JavaScript development, 3D modeling (Blender), real-time 3D rendering (Babylon.js)",
+    "date": "22/11/2023",
+   "preview": 2
+  },
+  {
+    "title": "Init2",
+    "slug": "init2",
+    "ref": "/init2",
+    "description":
+      "Init2 is a company based in Nantes, France. They hired me to rebuild their website. I collaborated with designer Marthe Aubineau, transforming her Figma designs into a fully responsive and accessible website.",
+    "context": "Freelance",
+    "skills": "Front-end development (HTML, CSS, JavaScript), responsive design", 
+    "preview": 4
+  },
+  {
+    "title": "Portfolio Touzinaud",
+    "slug": "portfoliotouzinaud",
+    "ref": "/portfoliotouzinaud",
+    "description":
+      "Valentin Touzinaud, a web designer from La Rochelle, asked me to develop his personal portfolio. I used Next.js to create a fast and modern website that faithfully reproduced his design, ensuring responsiveness and a smooth user experience.",
+    "context": "Freelance",
+    "skills": "Web development (Next.js), responsive design, performance optimization",
+    "preview": 4
+  }
+]

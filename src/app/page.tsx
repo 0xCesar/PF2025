@@ -5,6 +5,7 @@ import styles from "./page.module.css";
 import Menu from "./components/menu/menu";
 import Projects from "./components/projects/projects";
 import ReactLenis, { useLenis } from "lenis/react";
+import StatsMonitor from "./components/stats";
 
 export default function Home() {
   
@@ -16,6 +17,7 @@ export default function Home() {
           <Projects />
         <ReactLenis>
         </ReactLenis>
+        {/*<StatsMonitor />*/}
        </div>
 
     

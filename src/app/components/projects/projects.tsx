@@ -7,7 +7,8 @@ import Image from 'next/image'
 import Link from 'next/link';
 import { gsap } from 'gsap';
 import ThreeScene from "../threescene/ThreeScene";
-
+import projects from "../../data/projects.json";
+/*
 const projectsToBeShown:{
     title: string;
     slug: string;
@@ -32,8 +33,14 @@ const projectsToBeShown:{
                       slug: "portfoliotouzinaud",
                       ref: "pfval",
                       },                   
-];
-  
+];*/
+const projectsToBeShown = projects.map(p => ({
+  title: p.title,
+  slug: p.slug,
+  ref: p.ref ?? p.slug,
+}));  
+
+
 export default function Projects() {
 
     let [index, setIndex] = useState(1);
@@ -166,11 +173,16 @@ export default function Projects() {
 
 
         <div className="all-projects-titles-container" id="projet-title">
-
+{/*
           {projectsToBeShown.map((project, i) => (
                 <h3 key={project.slug}  className="projet-title   hover-link">
                   {project.title}
                 </h3>
+          ))}*/}
+          {projectsToBeShown.map((project) => (
+            <h3 key={project.slug} className="projet-title hover-link">
+              {project.title}
+            </h3>
           ))}
         </div>
         
@@ -181,7 +193,7 @@ export default function Projects() {
             <Image 
                       fill
               style={{ objectFit: 'contain', visibility : "hidden" }}
-                src={'/assets-img/' +projectsToBeShown[index-1].ref + '.png'} 
+                src={'/assets-projet/' +projectsToBeShown[index-1].slug + '/img0.png'} 
                 alt="" 
                 id="refImage3D"
                 className="hover-project " 

@@ -7,9 +7,10 @@ import { useRouter } from 'next/navigation';
 
 import vertexShader from '@/shader/planeShader/vertex.glsl';
 import fragmentShader from '@/shader/planeShader/fragment.glsl';
+import projects from "../../data/projects.json";
 
 // Paths to textures for each project
-const texturePaths = [
+/*const texturePaths = [
   '/assets-img/canette.png',
   '/assets-img/IMGA.png',
   '/assets-img/init.png',
@@ -21,8 +22,9 @@ const linkPaths = [
   '/projets/immersiveGallery',
   '/projets/init2',
   '/projets/portfoliotouzinaud'
-];
-
+]; */
+const texturePaths = projects.map(p => `/assets-projet/${p.ref?.replace(/^\/+/, '')}/img0.png`);
+const linkPaths = projects.map(p => `/projets/${p.slug}`);
 interface ThreeSceneProps {
   nbPlane: number;
   currentIndex: number; 

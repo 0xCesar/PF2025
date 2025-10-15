@@ -1,5 +1,3 @@
-"use client";
-
 import { notFound } from "next/navigation";
 import React, { useEffect, use } from "react";
 import { gsap } from "gsap";
@@ -7,6 +5,9 @@ import Image from 'next/image'
 import "./project.css";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import { Poppins } from 'next/font/google';
+import projects from '../../data/projects.json';
+import ProjectClient from "./projectClient";
+
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -15,7 +16,7 @@ const poppins = Poppins({
 })
 
 gsap.registerPlugin(ScrollToPlugin);
-
+/*
 const projects = [
   {
     title: "Canette 3D",
@@ -59,10 +60,12 @@ const projects = [
     skills: "Web development (Next.js), responsive design, performance optimization",
     preview: 4,
   },
-];
+]; */
 
-
-
+export async function generateStaticParams() {
+  return projects.map((p) => ({ slug: p.slug }));
+}
+/*
 export default function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = use(params);
 
@@ -121,5 +124,34 @@ export default function ProjectPage({ params }: { params: Promise<{ slug: string
             
     </div>
     
+  );
+}*/
+export default function ProjectPage({ params }: { params: { slug: string } }) {
+  const project = projects.find((p) => p.slug === params.slug);
+
+  if (!project) return notFound();
+
+  return (
+    <div>
+        <div className="projectpage-container">
+          <div className="projectpage-content">
+            <h3>{project.title}</h3>
+            <p>Context : {project.context}</p>
+            <p>Skills Used & Developed: {project.skills}</p>
+            <p>{project.description}</p>
+          </div>
+
+          <div className="projectpage-preview">
+            <Image
+              src={`/assets-projet/${project.slug}/img0.png`} // <-- Pas sur de les avoir toutes a ce chemin la
+              alt={project.title}
+              fill
+              style={{ objectFit: "cover" }}
+            />
+          </div>
+        </div>
+       <ProjectClient slug={project.slug} previewCount={project.preview} />
+    </div>
+
   );
 }
