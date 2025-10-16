@@ -119,8 +119,8 @@ useEffect(() => {
 const getPlaneDimensions = (isMobile: boolean, refDim: DOMRect) => {
   if (isMobile) {
     return {
-      width: refDim.width * 0.8,   // tu peux adapter le ratio
-      height: refDim.height * 0.8, // par exemple plus petit sur mobile
+      width: refDim.width,   // tu peux adapter le ratio
+      height: refDim.height, // par exemple plus petit sur mobile
     };
   } else {
     return {

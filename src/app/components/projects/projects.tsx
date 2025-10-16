@@ -193,7 +193,7 @@ export default function Projects() {
         <div className="projet-image hover-project  ">
             <Image 
                       fill
-              style={{ objectFit: 'contain', visibility : "hidden" }}
+              style={{visibility : "hidden" }}
                 src={'/assets-projet/' +projectsToBeShown[index-1].slug + '/img0.png'} 
                 alt="" 
                 id="refImage3D"
