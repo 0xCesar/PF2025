@@ -47,7 +47,7 @@ align-self: end;
     display: flex;
     padding-inline : 2.5vw;
     justify-content: space-between;
-    padding-block: 5vh;
+    padding-block: 5svh;
     font-family: 'Poppins', sans-serif;
 
 }

@@ -225,9 +225,9 @@ const getPlaneDimensions = (isMobile: boolean, refDim: DOMRect) => {
       canvas.style.zIndex = '10';
 
       // uncomment to append canvas : debugging purpose
-      //document.body.appendChild(canvas);
+      document.body.appendChild(canvas);
 
-      displacement.canvas = canvas; // Getting our canvas stocked in the displacement object
+      displacement.canvas = canvas; 
 
       const context = canvas.getContext('2d');
       if (!context) {
@@ -470,7 +470,7 @@ const getPlaneDimensions = (isMobile: boolean, refDim: DOMRect) => {
             });
             planeRefs.current = [];
             renderer.dispose();
-            containerRef.current?.removeChild(renderer.domElement); // 👈 enlever canvas
+            containerRef.current?.removeChild(renderer.domElement); 
  
           };
        
