@@ -48,7 +48,16 @@ export default function Projects() {
     const isScrollingRef = useRef(false);
     const wheelTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
     const [imageLoaded, setImageLoaded] = useState(false);
-
+    const [isMobile, setIsMobile] = useState(false);
+      
+        
+      
+     useEffect(() => {
+      const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+      checkMobile();
+      window.addEventListener("resize", checkMobile);
+      return () => window.removeEventListener("resize", checkMobile);
+    }, []);
     const nextProjet = () => {
       const projectsName = document.querySelectorAll('#projet-title > *');
       const projectsNumber = document.querySelectorAll('#number-project > *');
@@ -193,7 +202,9 @@ export default function Projects() {
         <div className="projet-image hover-project  ">
             <Image 
                       fill
-              style={{visibility : "hidden" }}
+                  style={{
+                      visibility: isMobile ? "visible" : "hidden"
+                    }}
                 src={'/assets-projet/' +projectsToBeShown[index-1].slug + '/img0.png'} 
                 alt="" 
                 id="refImage3D"
@@ -201,12 +212,13 @@ export default function Projects() {
                   onLoad={() => setImageLoaded(true)}
             />
         </div>
-        
-        <ThreeScene 
-             nbPlane={projectsToBeShown.length}
-             currentIndex={currentIndex}
-              imageLoaded={imageLoaded} 
-        ></ThreeScene>
+          {!isMobile && (
+              <ThreeScene 
+                nbPlane={projectsToBeShown.length}
+                currentIndex={currentIndex}
+                imageLoaded={imageLoaded} 
+              />
+            )}
         </Link>
         {/**</Link>***/}
          

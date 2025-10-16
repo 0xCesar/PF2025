@@ -252,6 +252,9 @@ const getPlaneDimensions = (isMobile: boolean, refDim: DOMRect) => {
        
       if(!container) return;
       window.addEventListener('pointermove', handlePointerMove);
+      containerRef.current?.addEventListener('pointerdown', (e) => {
+        e.preventDefault(); // évite le scroll pendant le drag
+      });
        
       function handlePointerMove(event: PointerEvent) {
        //console.log(event)

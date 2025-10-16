@@ -4,7 +4,6 @@ import Image from "next/image";
 import styles from "./page.module.css";
 import Menu from "./components/menu/menu";
 import Projects from "./components/projects/projects";
-import ReactLenis, { useLenis } from "lenis/react";
 import StatsMonitor from "./components/stats";
 
 export default function Home() {
@@ -15,8 +14,6 @@ export default function Home() {
       
        <div>
           <Projects />
-        <ReactLenis>
-        </ReactLenis>
         {/*<StatsMonitor />*/}
        </div>
 
