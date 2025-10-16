@@ -47,6 +47,7 @@ export default function Projects() {
     const [currentIndex, setCurrentIndex] = useState(0);
     const isScrollingRef = useRef(false);
     const wheelTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+    const [imageLoaded, setImageLoaded] = useState(false);
 
     const nextProjet = () => {
       const projectsName = document.querySelectorAll('#projet-title > *');
@@ -197,12 +198,14 @@ export default function Projects() {
                 alt="" 
                 id="refImage3D"
                 className="hover-project " 
+                  onLoad={() => setImageLoaded(true)}
             />
         </div>
         
         <ThreeScene 
              nbPlane={projectsToBeShown.length}
              currentIndex={currentIndex}
+              imageLoaded={imageLoaded} 
         ></ThreeScene>
         </Link>
         {/**</Link>***/}

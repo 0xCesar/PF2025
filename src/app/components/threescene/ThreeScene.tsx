@@ -9,27 +9,13 @@ import vertexShader from '@/shader/planeShader/vertex.glsl';
 import fragmentShader from '@/shader/planeShader/fragment.glsl';
 import projects from "../../data/projects.json";
 
-// Paths to textures for each project
-/*const texturePaths = [
-  '/assets-img/canette.png',
-  '/assets-img/IMGA.png',
-  '/assets-img/init.png',
-  '/assets-img/pfval.png'
-];
-
-const linkPaths = [
-  '/projets/canette3D',
-  '/projets/immersiveGallery',
-  '/projets/init2',
-  '/projets/portfoliotouzinaud'
-]; */
 const texturePaths = projects.map(p => `/assets-projet/${p.ref?.replace(/^\/+/, '')}/img0.png`);
 const linkPaths = projects.map(p => `/projets/${p.slug}`);
 interface ThreeSceneProps {
   nbPlane: number;
   currentIndex: number; 
+  imageLoaded: boolean;
 }
-
 interface Displacement {
   canvas: HTMLCanvasElement;
   context: CanvasRenderingContext2D;
@@ -42,7 +28,7 @@ interface Displacement {
   texture: THREE.CanvasTexture;
 }
 
-const ThreeScene: React.FC<ThreeSceneProps> = ({ nbPlane, currentIndex }) => {
+const ThreeScene: React.FC<ThreeSceneProps> = ({ nbPlane, currentIndex, imageLoaded }) => {
 
   const containerRef = useRef<HTMLDivElement>(null);
   const planeRefs = useRef<THREE.Mesh[]>([]);
@@ -145,7 +131,7 @@ const getPlaneDimensions = (isMobile: boolean, refDim: DOMRect) => {
 };
 
   useEffect(() => {
-
+    if (!imageLoaded) return;
 
     if (typeof window !== 'undefined') {
 
@@ -491,7 +477,7 @@ const getPlaneDimensions = (isMobile: boolean, refDim: DOMRect) => {
   
        
     }
-  }, []);
+  }, [imageLoaded, isMobile]);
 
 
   return <div ref={containerRef} className='container-canvas   hover-project'/>
