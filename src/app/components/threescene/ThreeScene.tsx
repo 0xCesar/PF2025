@@ -225,7 +225,7 @@ const getPlaneDimensions = (isMobile: boolean, refDim: DOMRect) => {
       canvas.style.zIndex = '10';
 
       // uncomment to append canvas : debugging purpose
-      document.body.appendChild(canvas);
+      //document.body.appendChild(canvas);
 
       displacement.canvas = canvas; 
 
@@ -252,9 +252,7 @@ const getPlaneDimensions = (isMobile: boolean, refDim: DOMRect) => {
        
       if(!container) return;
       window.addEventListener('pointermove', handlePointerMove);
-      containerRef.current?.addEventListener('pointerdown', (e) => {
-        e.preventDefault(); // évite le scroll pendant le drag
-      });
+
        
       function handlePointerMove(event: PointerEvent) {
        //console.log(event)

@@ -67,3 +67,12 @@
         height: auto !important;
     }
 }
+@media (max-width: 768px){
+    .projet-image{
+        position: absolute;
+        right: 2.5vw;
+    }
+    .all-projects-titles-container{
+        transform: translateY(2rem);
+    }
+}
