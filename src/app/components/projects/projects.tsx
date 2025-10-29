@@ -52,12 +52,14 @@ export default function Projects() {
       
         
       
-     useEffect(() => {
+    useEffect(() => {
       const checkMobile = () => setIsMobile(window.innerWidth <= 768);
       checkMobile();
       window.addEventListener("resize", checkMobile);
       return () => window.removeEventListener("resize", checkMobile);
     }, []);
+
+
     const nextProjet = () => {
       const projectsName = document.querySelectorAll('#projet-title > *');
       const projectsNumber = document.querySelectorAll('#number-project > *');
@@ -142,6 +144,49 @@ export default function Projects() {
     }, 250); 
 };
 
+    // touch support for mobile: swipe up/down to change project
+    const touchStartYRef = useRef<number | null>(null);
+
+    const handleTouchStart = (e: TouchEvent) => {
+      if (e.touches && e.touches.length > 0) {
+        touchStartYRef.current = e.touches[0].clientY;
+      }
+    };
+
+    // prevent default scrolling during touchmove so the page doesn't jump while swiping
+    const handleTouchMove = (e: TouchEvent) => {
+      // only prevent when we started a touch inside this component
+      if (touchStartYRef.current != null) {
+        e.preventDefault();
+      }
+    };
+
+    const handleTouchEnd = (e: TouchEvent) => {
+      if (isScrollingRef.current) return;
+
+      const startY = touchStartYRef.current;
+      const endY = (e.changedTouches && e.changedTouches[0]) ? e.changedTouches[0].clientY : null;
+      touchStartYRef.current = null;
+      if (startY == null || endY == null) return;
+
+      const deltaPx = startY - endY; // positive when swiping up
+      const thresholdPx = 40; // minimum pixels to consider a swipe
+
+      if (Math.abs(deltaPx) < thresholdPx) return;
+
+      isScrollingRef.current = true;
+      if (deltaPx > 0) {
+        nextProjet();
+      } else {
+        prevProjet();
+      }
+
+      if (wheelTimeout.current) clearTimeout(wheelTimeout.current);
+      wheelTimeout.current = setTimeout(() => {
+        isScrollingRef.current = false;
+      }, 250);
+    };
+
 
     useEffect(() => {
       const projectsName = document.querySelectorAll('#projet-title > *');
@@ -155,10 +200,17 @@ export default function Projects() {
       };
 
       window.addEventListener("wheel", handleSceneWheel,  { passive: false });
+      // Touch events for mobile
+      window.addEventListener('touchstart', handleTouchStart, { passive: true });
+      window.addEventListener('touchmove', handleTouchMove, { passive: false });
+      window.addEventListener('touchend', handleTouchEnd, { passive: true });
       window.addEventListener("keydown", handleKeyDown);
 
       return () => {
         window.removeEventListener("wheel", handleSceneWheel);
+        window.removeEventListener('touchstart', handleTouchStart);
+        window.removeEventListener('touchmove', handleTouchMove);
+        window.removeEventListener('touchend', handleTouchEnd);
         window.removeEventListener("keydown", handleKeyDown);
       };
     }, []); 
