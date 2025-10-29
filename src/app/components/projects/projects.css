@@ -122,5 +122,8 @@ width: 15px;
     .all-projects-titles-container,  .projet-title {
         width: 95vw;
     }
+    .projet-title{
+        font-size: 1.8rem;
+    }
 
 }
