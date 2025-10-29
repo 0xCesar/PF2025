@@ -192,7 +192,7 @@ export default function Projects() {
 
     useEffect(() => {
       const projectsName = document.querySelectorAll('#projet-title > *');
-  
+    
       const handleKeyDown = (e: KeyboardEvent) => {    
         if (e.key === "ArrowDown") {
           nextProjet(); 
@@ -200,7 +200,8 @@ export default function Projects() {
            prevProjet();
         }
       };
-
+  
+   
       window.addEventListener("wheel", handleSceneWheel,  { passive: false });
       // Touch events for mobile
       window.addEventListener('touchstart', handleTouchStart, { passive: true });
@@ -224,7 +225,7 @@ export default function Projects() {
         <div className="project-number">
        
 
-             <div className="triangle-container-top">
+             <div className="triangle-container-top" id="prev-project">
                 <p 
                   className="triangle-true-top"
                   style={index === 1 ? { background: '#ccc' } : {}} 
@@ -244,7 +245,7 @@ export default function Projects() {
             <p className="line"></p>
             <p>{projectsToBeShown.length.toString().padStart(2, '0')}</p>
                        
-              <div className="triangle-container">
+              <div className="triangle-container" id="next-project">
                 <p className="triangle-hide"></p>
                 <p className="triangle-true"
                 style={index === projectsToBeShown.length ? { background: '#ccc' } : {}}

@@ -13,6 +13,7 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
+    left: 2.5vw;
 }
 
 .project-number .line{
@@ -115,4 +116,11 @@ width: 15px;
     .all-projects-titles-container{
         transform: translateY(2rem);
     }
+    .landing-container{
+        flex-direction: column-reverse;
+    }
+    .all-projects-titles-container,  .projet-title {
+        width: 95vw;
+    }
+
 }
