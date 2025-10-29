@@ -61,6 +61,46 @@
     left: 0;
 }
 
+.triangle-container{
+    position: relative;
+    width: 1rem;
+        transform: translateX(2px);
+}
+.triangle-hide{
+width: 15px;
+    height: 15px;
+    background: white;
+    transform: translateY(4px) rotate(45deg);
+    z-index: 10;
+    position: relative;
+}
+.triangle-true{
+    width: 15px;
+    height: 15px;
+    background: black;
+    transform: translateY(-10px) rotate(45deg);
+}
+
+.triangle-container-top{
+    position: relative;
+    width: 1rem;
+        transform: translateX(2px);
+}
+.triangle-hide-top{
+    width: 15px;
+    height: 15px;
+    background: white;
+    transform: translateY(-4px) rotate(45deg);
+    z-index: 10;
+    position: relative;
+}
+.triangle-true-top{
+    width: 15px;
+    height: 15px;
+    background: black;
+    transform: translateY(10px) rotate(45deg);
+}
+
 
 @media (min-width: 768px){
     .projet-image img{

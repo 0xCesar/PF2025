@@ -34,6 +34,7 @@ const projectsToBeShown:{
                       ref: "pfval",
                       },                   
 ];*/
+
 const projectsToBeShown = projects.map(p => ({
   title: p.title,
   slug: p.slug,
@@ -49,6 +50,7 @@ export default function Projects() {
     const wheelTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
     const [imageLoaded, setImageLoaded] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
+   
       
         
       
@@ -220,6 +222,16 @@ export default function Projects() {
 
 
         <div className="project-number">
+       
+
+             <div className="triangle-container-top">
+                <p 
+                  className="triangle-true-top"
+                  style={index === 1 ? { background: '#ccc' } : {}} 
+                ></p>
+                <p className="triangle-hide-top"></p>
+              </div>
+       
             <div id="number-project">
             {projectsToBeShown.map((_, i) => (
               <p
@@ -231,6 +243,15 @@ export default function Projects() {
             </div>
             <p className="line"></p>
             <p>{projectsToBeShown.length.toString().padStart(2, '0')}</p>
+                       
+              <div className="triangle-container">
+                <p className="triangle-hide"></p>
+                <p className="triangle-true"
+                style={index === projectsToBeShown.length ? { background: '#ccc' } : {}}
+                ></p>
+              </div>
+                  
+
         </div>
 
 
@@ -247,7 +268,7 @@ export default function Projects() {
             </h3>
           ))}
         </div>
-        
+  
  
         {/**<Link  href={`/projets/${projectsToBeShown[index - 1].slug}`}>***/}
         <Link  href={`/projets/${projectsToBeShown[index - 1].slug}`}>
