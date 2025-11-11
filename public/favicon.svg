@@ -1,0 +1,10 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="16" cy="16" r="13" fill="url(#paint0_radial_337_2)"/>
+<defs>
+<radialGradient id="paint0_radial_337_2" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(3.5 15) scale(25.5)">
+<stop stop-color="#A7D1EF"/>
+<stop offset="0.682692" stop-color="#687A87"/>
+<stop offset="1" stop-color="#4E5B65"/>
+</radialGradient>
+</defs>
+</svg>

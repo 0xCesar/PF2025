@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 import vertexShader from '@/shader/planeShader/vertex.glsl';
 import fragmentShader from '@/shader/planeShader/fragment.glsl';
 import projects from "../../data/projects.json";
+import { useWebGLSupport } from '@/app/hook/useWebGLSupport';
 
 const texturePaths = projects.map(p => `/assets-projet/${p.ref?.replace(/^\/+/, '')}/img0.png`);
 const linkPaths = projects.map(p => `/projets/${p.slug}`);
@@ -43,7 +44,7 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ nbPlane, currentIndex, imageLoa
   const [isHoveringPlane, setIsHoveringPlane] = useState(false);
 
   const [isMobile, setIsMobile] = useState(false);
-  
+  const isWebGL = useWebGLSupport();
     
   
   useEffect(() => {
@@ -106,7 +107,7 @@ useEffect(() => {
 
       if (planeIndex !== -1) {
         const targetPath = linkPaths[planeIndex];
-        console.log("Redirection vers :", targetPath);
+      //  console.log("Redirection vers :", targetPath);
         window.location.href = targetPath; // ou router.push(targetPath) si tu veux Next.js
       }
     }
@@ -132,6 +133,8 @@ const getPlaneDimensions = (isMobile: boolean, refDim: DOMRect) => {
 
   useEffect(() => {
     if (!imageLoaded) return;
+    if (isWebGL === false) return; 
+    if (isWebGL === null) return; 
 
     if (typeof window !== 'undefined') {
 
@@ -225,7 +228,7 @@ const getPlaneDimensions = (isMobile: boolean, refDim: DOMRect) => {
       canvas.style.zIndex = '10';
 
       // uncomment to append canvas : debugging purpose
-      //document.body.appendChild(canvas);
+      document.body.appendChild(canvas);
 
       displacement.canvas = canvas; 
 
@@ -333,7 +336,7 @@ const getPlaneDimensions = (isMobile: boolean, refDim: DOMRect) => {
               displacement.raycaster?.setFromCamera(displacement.screenCursor, camera);
               const intersections = displacement.raycaster.intersectObject(displacement.interactivePlane)
               if(intersections.length > 0)
-              { console.log('je passe dedans');
+              { //console.log('je passe dedans');
    
                                     handleHoverChange(true);
         
@@ -402,7 +405,7 @@ const getPlaneDimensions = (isMobile: boolean, refDim: DOMRect) => {
 
             const width = containerRef.current?.offsetWidth ?? window.innerWidth;
             const height = containerRef.current?.offsetHeight ?? window.innerHeight;
-            console.log("Resizing to:", width, height);
+           // console.log("Resizing to:", width, height);
 
             if (camera instanceof THREE.PerspectiveCamera) {
               camera.aspect = width / height;
@@ -415,7 +418,7 @@ const getPlaneDimensions = (isMobile: boolean, refDim: DOMRect) => {
 
             const widthPlane = refImagResize?.width ?? window.innerWidth;
             const heightPlane = refImagResize?.height ?? window.innerHeight;
-            console.log("Resizing to:", widthPlane, heightPlane);
+           // console.log("Resizing to:", widthPlane, heightPlane);
             if (displacement.interactivePlane) {
               const newGeometry = new THREE.PlaneGeometry(widthPlane, heightPlane, 50, 50);
               displacement.interactivePlane.geometry.dispose();
@@ -430,7 +433,7 @@ const getPlaneDimensions = (isMobile: boolean, refDim: DOMRect) => {
             planeRefs.current.forEach((plane, i) => {
               plane.geometry.dispose();
               const newGeometry = new THREE.PlaneGeometry(widthPlane, heightPlane, 50, 50);
-              console.log("New plane geometry:", newGeometry);
+           //   console.log("New plane geometry:", newGeometry);
               plane.geometry = newGeometry;
 
               // Reposition according to new height
@@ -480,6 +483,15 @@ const getPlaneDimensions = (isMobile: boolean, refDim: DOMRect) => {
     }
   }, [imageLoaded, isMobile]);
 
+
+   if (isWebGL === false) {
+    return (
+      <div className="text-center mt-10 text-red-500">
+        ⚠️ Votre navigateur ou appareil ne supporte pas WebGL.<br />
+        Essayez sur un autre appareil ou mettez à jour vos pilotes.
+      </div>
+    );
+  }
 
   return <div ref={containerRef} className='container-canvas   hover-project'/>
     
