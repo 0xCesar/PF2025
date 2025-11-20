@@ -277,7 +277,8 @@ export default function Projects() {
             <Image 
                       fill
                   style={{
-                      visibility: isMobile ? "visible" : "hidden"
+                    visibility: "hidden"
+                      /*visibility: isMobile ? "visible" : "hidden"*/
                     }}
                 src={'/assets-projet/' +projectsToBeShown[index-1].slug + '/img0.png'} 
                 alt="" 
@@ -286,13 +287,13 @@ export default function Projects() {
                   onLoad={() => setImageLoaded(true)}
             />
         </div>
-          {!isMobile && (
+
               <ThreeScene 
                 nbPlane={projectsToBeShown.length}
                 currentIndex={currentIndex}
                 imageLoaded={imageLoaded} 
               />
-            )}
+          
         </Link>
         {/**</Link>***/}
          
