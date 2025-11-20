@@ -228,7 +228,7 @@ const getPlaneDimensions = (isMobile: boolean, refDim: DOMRect) => {
       canvas.style.zIndex = '10';
 
       // uncomment to append canvas : debugging purpose
-      document.body.appendChild(canvas);
+     // document.body.appendChild(canvas);
 
       displacement.canvas = canvas; 
 
@@ -377,7 +377,7 @@ const getPlaneDimensions = (isMobile: boolean, refDim: DOMRect) => {
                   
                   if(displacement.context && displacement.canvas && displacement.texture){
                     
-                     displacement.context.globalCompositeOperation = 'source-over'
+                     //displacement.context.globalCompositeOperation = 'source-over'
                      displacement.context.fillRect(0, 0, displacement.canvas.width, displacement.canvas.height)
                   displacement.texture.needsUpdate = true;
                 }

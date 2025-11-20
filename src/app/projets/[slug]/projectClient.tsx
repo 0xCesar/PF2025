@@ -24,31 +24,22 @@ export default function ProjectClient({
   }, []);
 
   return (
-    <>
-      {Array.from({ length: previewCount }).map((_, i) => {
-        if (i % 2 !== 0) return null;
-
-        return (
-          <div key={i} className="projectpage-image-wrapper">
-            <Image
-              src={`/assets-projet/${slug}/img${i + 1}.png`}
-              alt={`Image ${i + 1}`}
-              width={800}
-              height={600}
-              className="projectpage-image"
-            />
-            {(i + 1) < previewCount && (
-              <Image
-                src={`/assets-projet/${slug}/img${i + 2}.png`}
-                alt={`Image ${i + 2}`}
-                width={800}
-                height={600}
-                className="projectpage-image"
-              />
-            )}
-          </div>
-        );
-      })}
-    </>
+    <div className="projectpage-images-container">
+      {Array.from({ length: previewCount }).map((_, i) => (
+        <Image
+          key={i}
+          src={`/assets-projet/${slug}/img${i}.png`}
+          alt={`Image ${i}`}
+          width={1920}
+          height={1080}
+          className="projectpage-image"
+          style={{
+            width: '100%',
+            height: 'auto',
+            marginBottom: '2svh',
+          }}
+        />
+      ))}
+    </div>
   );
 }

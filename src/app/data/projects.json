@@ -29,7 +29,9 @@
     "description":
       "Init2 is a company based in Nantes, France. They hired me to rebuild their website. I collaborated with designer Marthe Aubineau, transforming her Figma designs into a fully responsive and accessible website.",
     "context": "Freelance",
-    "skills": "Front-end development (HTML, CSS, JavaScript), responsive design", 
+    "skills": "Figma, Vitejs, GSAP", 
+       "date": "June 2024",
+    "role": "Developer",
     "preview": 4
   },
   {
