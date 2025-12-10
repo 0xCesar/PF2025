@@ -39,6 +39,7 @@ const projectsToBeShown = projects.map(p => ({
   title: p.title,
   slug: p.slug,
   ref: p.ref ?? p.slug,
+  caption : p.caption
 }));  
 
 
@@ -270,8 +271,7 @@ export default function Projects() {
                 </h3>
               ))}
             </div>
-            <div className="project-caption">
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec dapibus odio ut dolor consectetur, non semper augue eleifend.</div>
+            <div className="project-caption">{projectsToBeShown[index - 1].caption} </div>
             <Link href={`/projets/${projectsToBeShown[index - 1].slug}`}  className="project-btn hover-link">Explore</Link>
         </div>
   

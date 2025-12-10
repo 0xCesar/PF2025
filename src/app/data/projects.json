@@ -3,6 +3,7 @@
     "title": "Canette 3D",
     "slug": "canette3D",
     "ref": "/canette3D",
+    "caption": "A 3D interactive soda can experience built with Three.js and GSAP.",
     "description":
       "This was a personal project created during my studies, following Bruno Simon’s “Three.js Journey” course. I wanted to challenge myself and explore what I could build by combining 3D modeling in Blender with interactive web development using Three.js and GSAP.",
     "context": "School Project",
@@ -15,6 +16,7 @@
     "title": "Immersive Gallery",
     "slug": "immersiveGallery",
     "ref": "/immersiveGallery",
+    "caption": "A virtual museum experience that users navigate by scrolling through a web page.",
     "description":
       "Immersive Gallery is a virtual museum built within a web page. As users scroll, they navigate through the space, revealing artworks and collections. I was responsible for integrating 3D elements and building the interactive experience using Babylon.js.",
     "context": "Internship",
@@ -26,6 +28,7 @@
     "title": "Init2",
     "slug": "init2",
     "ref": "/init2",
+    "caption": "A responsive and accessible website for Init2, built from Figma designs.",
     "description":
       "Init2 is a company based in Nantes, France. They hired me to rebuild their website. I collaborated with designer Marthe Aubineau, transforming her Figma designs into a fully responsive and accessible website.",
     "context": "Freelance",
@@ -38,6 +41,7 @@
     "title": "Portfolio Touzinaud",
     "slug": "portfoliotouzinaud",
     "ref": "/portfoliotouzinaud",
+    "caption": "A personal portfolio website for web designer Valentin Touzinaud, built with Next.js.",
     "description":
       "Valentin Touzinaud, a web designer from La Rochelle, asked me to develop his personal portfolio. I used Next.js to create a fast and modern website that faithfully reproduced his design, ensuring responsiveness and a smooth user experience.",
     "context": "Freelance",

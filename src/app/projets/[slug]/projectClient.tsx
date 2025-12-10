@@ -36,7 +36,8 @@ export default function ProjectClient({
           style={{
             width: '100%',
             height: 'auto',
-            marginBottom: '2svh',
+            marginBottom: '7.5svh',
+
           }}
         />
       ))}
