@@ -206,7 +206,7 @@ const getPlaneDimensions = (isMobile: boolean, refDim: DOMRect) => {
       canvas.style.zIndex = '10';
 
       // uncomment to append canvas : debugging purpose
-     // document.body.appendChild(canvas);
+      // document.body.appendChild(canvas);
 
       displacement.canvas = canvas; 
 
@@ -236,7 +236,7 @@ const getPlaneDimensions = (isMobile: boolean, refDim: DOMRect) => {
 
        
       function handlePointerMove(event: PointerEvent) {
-       //console.log(event)
+      // console.log(event)
           const container = containerRef.current;
           if (!container) return;
           const rect = container.getBoundingClientRect();
@@ -431,6 +431,8 @@ const getPlaneDimensions = (isMobile: boolean, refDim: DOMRect) => {
     const cliked = () => {
       console.log("clicked");
     };
+    canvas.addEventListener("click", cliked);
+
 
     const handleCanvasClick = (event: MouseEvent) => {
       console.log("🖱️ Click détecté");
@@ -459,7 +461,7 @@ const getPlaneDimensions = (isMobile: boolean, refDim: DOMRect) => {
       }
     };
   console.log(canvas1);
-  canvas.addEventListener("click", cliked);
+
    // canvas1.addEventListener("click", handleCanvasClick);
    //
    // 
@@ -486,6 +488,8 @@ const getPlaneDimensions = (isMobile: boolean, refDim: DOMRect) => {
               }
             }
             });
+
+  
             planeRefs.current = [];
             renderer.dispose();
             containerRef.current?.removeChild(renderer.domElement); 

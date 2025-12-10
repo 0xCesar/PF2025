@@ -75,7 +75,7 @@ export default function Projects() {
           let gapAdjusted = '-100%'; 
 
           if(prevIndex != 0){
-            gap = -100 * prevIndex - 12 + '%';
+            gap = -100 * prevIndex  + '%';
             gapAdjusted = -100 * prevIndex + '%';
           }
 
@@ -103,7 +103,7 @@ export default function Projects() {
         let gap = '0%'
         let gapAdjusted = '0%'
         if(prevIndex != 2){
-          gap = (-100 * (prevIndex - 1)) + 100 - 12 + '%';
+          gap = (-100 * (prevIndex - 1)) + 100  + '%';
           gapAdjusted = (-100 * (prevIndex - 1)) + 100  + '%';
         }
 
