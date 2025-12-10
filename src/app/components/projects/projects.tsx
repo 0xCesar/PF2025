@@ -222,52 +222,57 @@ export default function Projects() {
     return <div className="page-container landing-container">
 
 
-        <div className="project-number">
-       
-
-             <div className="triangle-container-top" id="prev-project">
-                <p 
-                  className="triangle-true-top"
-                  style={index === 1 ? { background: '#ccc' } : {}} 
-                ></p>
-                <p className="triangle-hide-top"></p>
-              </div>
-       
-            <div id="number-project">
-            {projectsToBeShown.map((_, i) => (
-              <p
-                  key={i}
-                >
-                  {(i + 1).toString().padStart(2, '0')}
-                </p>
-              ))}
-            </div>
-            <p className="line"></p>
-            <p>{projectsToBeShown.length.toString().padStart(2, '0')}</p>
-                       
-              <div className="triangle-container" id="next-project">
-                <p className="triangle-hide"></p>
-                <p className="triangle-true"
-                style={index === projectsToBeShown.length ? { background: '#ccc' } : {}}
-                ></p>
-              </div>
+        <div className="page-info-container">
+            <div className="project-number">
                   
 
-        </div>
+                        <div className="triangle-container-top" id="prev-project">
+                            <p 
+                              className="triangle-true-top"
+                              style={index === 1 ? { background: '#ccc' } : {}} 
+                            ></p>
+                            <p className="triangle-hide-top"></p>
+                          </div>
+                  
+                        <div id="number-project">
+                        {projectsToBeShown.map((_, i) => (
+                          <p
+                              key={i}
+                            >
+                              {(i + 1).toString().padStart(2, '0')}
+                            </p>
+                          ))}
+                        </div>
+                        <p className="line"></p>
+                        <p>{projectsToBeShown.length.toString().padStart(2, '0')}</p>
+                                  
+                          <div className="triangle-container" id="next-project">
+                            <p className="triangle-hide"></p>
+                            <p className="triangle-true"
+                            style={index === projectsToBeShown.length ? { background: '#ccc' } : {}}
+                            ></p>
+                          </div>
+                              
+
+            </div>
 
 
-        <div className="all-projects-titles-container" id="projet-title">
-{/*
-          {projectsToBeShown.map((project, i) => (
-                <h3 key={project.slug}  className="projet-title   hover-link">
+            <div className="all-projects-titles-container" id="projet-title">
+    {/*
+              {projectsToBeShown.map((project, i) => (
+                    <h3 key={project.slug}  className="projet-title   hover-link">
+                      {project.title}
+                    </h3>
+              ))}*/}
+              {projectsToBeShown.map((project) => (
+                <h3 key={project.slug} className="projet-title">
                   {project.title}
                 </h3>
-          ))}*/}
-          {projectsToBeShown.map((project) => (
-            <h3 key={project.slug} className="projet-title hover-link">
-              {project.title}
-            </h3>
-          ))}
+              ))}
+            </div>
+            <div className="project-caption">
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec dapibus odio ut dolor consectetur, non semper augue eleifend.</div>
+            <Link href={`/projets/${projectsToBeShown[index - 1].slug}`}  className="project-btn hover-link">Explore</Link>
         </div>
   
  

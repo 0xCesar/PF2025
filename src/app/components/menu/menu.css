@@ -94,7 +94,7 @@ align-self: end;
 
 .hover-link {
     height: fit-content;
-    width: fit-content;
+  /*  width: fit-content; */
     display: inline-block;
     overflow: hidden;
 }

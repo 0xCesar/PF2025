@@ -9,7 +9,7 @@
     "skills": "Web design, front-end development, motion design (GSAP), 3D modeling (Blender), 3D integration (Three.js)",
     "date": "12/04/2023",
 
-    "preview": 1
+    "preview": 4
   },
   {
     "title": "Immersive Gallery",
@@ -20,7 +20,7 @@
     "context": "Internship",
     "skills": "JavaScript development, 3D modeling (Blender), real-time 3D rendering (Babylon.js)",
     "date": "22/11/2023",
-   "preview": 2
+   "preview": 4
   },
   {
     "title": "Init2",
@@ -32,7 +32,7 @@
     "skills": "Figma, Vitejs, GSAP", 
        "date": "June 2024",
     "role": "Developer",
-    "preview": 4
+    "preview": 5
   },
   {
     "title": "Portfolio Touzinaud",
@@ -42,6 +42,6 @@
       "Valentin Touzinaud, a web designer from La Rochelle, asked me to develop his personal portfolio. I used Next.js to create a fast and modern website that faithfully reproduced his design, ensuring responsiveness and a smooth user experience.",
     "context": "Freelance",
     "skills": "Web development (Next.js), responsive design, performance optimization",
-    "preview": 4
+    "preview": 5
   }
 ]

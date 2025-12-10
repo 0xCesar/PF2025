@@ -92,30 +92,7 @@ useEffect(() => {
 useEffect(() => {
   animatePlanes();
 }, [currentIndex]);
-useEffect(() => {
-  const handleClick = () => {
-    if (!displacement.screenCursor || !cameraRef.current || !sceneRef.current || !displacement.raycaster) return;
 
-    // Détecter quel plane est cliqué
-    displacement.raycaster.setFromCamera(displacement.screenCursor, cameraRef.current);
-    const intersects = displacement.raycaster.intersectObjects(planeRefs.current);
-
-    if (intersects.length > 0) {
-      // Récupérer l'index du plane
-      const clickedPlane = intersects[0].object;
-      const planeIndex = planeRefs.current.indexOf(clickedPlane as THREE.Mesh);
-
-      if (planeIndex !== -1) {
-        const targetPath = linkPaths[planeIndex];
-      //  console.log("Redirection vers :", targetPath);
-        window.location.href = targetPath; // ou router.push(targetPath) si tu veux Next.js
-      }
-    }
-  };
-
-  window.addEventListener("click", handleClick);
-  return () => window.removeEventListener("click", handleClick);
-}, []);
 
 const getPlaneDimensions = (isMobile: boolean, refDim: DOMRect) => {
   if (isMobile) {
@@ -205,6 +182,7 @@ const getPlaneDimensions = (isMobile: boolean, refDim: DOMRect) => {
       }
       containerRef.current?.appendChild(renderer.domElement);
 
+ 
 
       // Set up 
       const rect = new DOMRect(0, 0, 500, 300);
@@ -306,9 +284,6 @@ const getPlaneDimensions = (isMobile: boolean, refDim: DOMRect) => {
           scene.add(plane);
           planeRefs.current[i] = plane;
         }
-
-
-
 
         //Animition function 
         const clock = new THREE.Clock();
@@ -449,12 +424,51 @@ const getPlaneDimensions = (isMobile: boolean, refDim: DOMRect) => {
           handleResize(); // Initial resize to set up the scene correctly
           window.addEventListener('resize', handleResize);
           
+ // ✅ AJOUTEZ LE GESTIONNAIRE DE CLIC ICI
+    const canvas1 = renderer.domElement;
+    console.log( canvas1);
 
+    const cliked = () => {
+      console.log("clicked");
+    };
+
+    const handleCanvasClick = (event: MouseEvent) => {
+      console.log("🖱️ Click détecté");
+      
+      if (!displacement.raycaster || !camera) return;
+
+      const rect = canvas.getBoundingClientRect();
+      const x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+      const y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+
+      const mouse = new THREE.Vector2(x, y);
+      displacement.raycaster.setFromCamera(mouse, camera);
+      const intersects = displacement.raycaster.intersectObjects(planeRefs.current);
+
+      console.log("🎯 Intersections:", intersects.length);
+
+      if (intersects.length > 0) {
+        const clickedPlane = intersects[0].object;
+        const planeIndex = planeRefs.current.indexOf(clickedPlane as THREE.Mesh);
+        
+        console.log("✅ Index:", planeIndex, "Path:", linkPaths[planeIndex]);
+
+        if (planeIndex !== -1) {
+          router.push(linkPaths[planeIndex]);
+        }
+      }
+    };
+  console.log(canvas1);
+  canvas.addEventListener("click", cliked);
+   // canvas1.addEventListener("click", handleCanvasClick);
+   //
+   // 
+  
           // Cleanup
            return () => {
              cancelAnimationFrame(rafId); // stop raf loop
             window.removeEventListener('resize', handleResize);
-              
+            canvas1.removeEventListener("click", handleCanvasClick);
             planeRefs.current.forEach((plane) => {
             if (plane) {
               scene.remove(plane);
