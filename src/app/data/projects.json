@@ -1,16 +1,17 @@
 [
+  
   {
-    "title": "Canette 3D",
-    "slug": "canette3D",
-    "ref": "/canette3D",
-    "caption": "A 3D interactive soda can experience built with Three.js and GSAP.",
+    "title": "Portfolio Touzinaud",
+    "slug": "portfoliotouzinaud",
+    "ref": "/portfoliotouzinaud",
+    "caption": "A portfolio website for web designer Valentin Touzinaud, built with Next.js.",
     "description":
-      "This was a personal project created during my studies, following Bruno Simon’s “Three.js Journey” course. I wanted to challenge myself and explore what I could build by combining 3D modeling in Blender with interactive web development using Three.js and GSAP.",
-    "context": "School Project",
-    "skills": "Web design, front-end development, motion design (GSAP), 3D modeling (Blender), 3D integration (Three.js)",
-    "date": "12/04/2023",
-
-    "preview": 4
+      "Valentin Touzinaud, a web designer based in Lyon, commissioned me to develop his personal portfolio website. Built with Next.js, the project focuses on performance and modern web standards while accurately translating his visual design into a fully responsive interface. The result is a fast, polished website that delivers a seamless and engaging user experience across all devices.",
+    "context": "Freelance",
+    "date": "September 2025",
+    "role": "Front-end Developer",
+    "skills": "Web development (Next.js/GSAP), responsive design, performance optimization",
+    "preview": 5
   },
   {
     "title": "Immersive Gallery",
@@ -18,10 +19,11 @@
     "ref": "/immersiveGallery",
     "caption": "A virtual museum experience that users navigate by scrolling through a web page.",
     "description":
-      "Immersive Gallery is a virtual museum built within a web page. As users scroll, they navigate through the space, revealing artworks and collections. I was responsible for integrating 3D elements and building the interactive experience using Babylon.js.",
+      "Immersive Gallery is a virtual museum experience built entirely within a web page. As users scroll, they are guided through a three-dimensional space that gradually reveals artworks and curated collections, creating a sense of movement and exploration. I was responsible for integrating the 3D environment and developing the interactive experience using Babylon.js, with a strong focus on performance, immersion, and smooth user interaction.",
     "context": "Internship",
     "skills": "JavaScript development, 3D modeling (Blender), real-time 3D rendering (Babylon.js)",
-    "date": "22/11/2023",
+    "date": "July 2024",
+    "role": "Creative Developer",
    "preview": 4
   },
   {
@@ -30,22 +32,24 @@
     "ref": "/init2",
     "caption": "A responsive and accessible website for Init2, built from Figma designs.",
     "description":
-      "Init2 is a company based in Nantes, France. They hired me to rebuild their website. I collaborated with designer Marthe Aubineau, transforming her Figma designs into a fully responsive and accessible website.",
+      "Init2 is a company based in Nantes, France, that commissioned me to rebuild their website. Working closely with designer Marthe Aubineau, I translated her Figma designs into a fully responsive, accessible, and high-performance website. The project focused on clean implementation, usability, and consistency across devices, ensuring an optimal user experience while staying true to the original design vision.",
     "context": "Freelance",
-    "skills": "Figma, Vitejs, GSAP", 
+    "skills": "front-end development, motion design (GSAP), responsive design, accessibility", 
        "date": "June 2024",
-    "role": "Developer",
+    "role": "Front-end Developer",
     "preview": 5
   },
   {
-    "title": "Portfolio Touzinaud",
-    "slug": "portfoliotouzinaud",
-    "ref": "/portfoliotouzinaud",
-    "caption": "A personal portfolio website for web designer Valentin Touzinaud, built with Next.js.",
+    "title": "Canette 3D",
+    "slug": "canette3D",
+    "ref": "/canette3D",
+    "caption": "A 3D interactive soda can experience built with Three.js and GSAP.",
     "description":
-      "Valentin Touzinaud, a web designer from La Rochelle, asked me to develop his personal portfolio. I used Next.js to create a fast and modern website that faithfully reproduced his design, ensuring responsiveness and a smooth user experience.",
-    "context": "Freelance",
-    "skills": "Web development (Next.js), responsive design, performance optimization",
-    "preview": 5
+      "This personal project was developed during my studies as part of Bruno Simon’s Three.js Journey course. The goal was to challenge myself and push my creative and technical skills by combining 3D modeling in Blender with interactive web development using Three.js and GSAP. The project explores real-time animations, user interaction, and smooth transitions to create an engaging and immersive web experience.",
+    "context": "School Project",
+    "skills": "Web design, front-end development, motion design (GSAP), 3D modeling (Blender), 3D integration (Three.js)",
+    "date": "April 2023",
+    "role": "Developer / Designer",
+    "preview": 4
   }
 ]
