@@ -165,6 +165,9 @@ const getPlaneDimensions = (isMobile: boolean, refDim: DOMRect) => {
       const width = containerRef.current?.offsetWidth ?? window.innerWidth;
       const height = containerRef.current?.offsetHeight ?? window.innerHeight;
       const extraHeight = height * 1.2;
+      if(isMobile){
+
+      }
 
       // Camera setup : merging threejs w/ html
       const camera = new THREE.PerspectiveCamera( 70, width/height, 0.01, 2000 );
@@ -280,6 +283,7 @@ const getPlaneDimensions = (isMobile: boolean, refDim: DOMRect) => {
           const plane = new THREE.Mesh(planeGeometry, materialShader);
           if( i != 0 && planeHeight){
             plane.position.y = planeHeight * 1.2 * -i ;
+
           }
           scene.add(plane);
           planeRefs.current[i] = plane;

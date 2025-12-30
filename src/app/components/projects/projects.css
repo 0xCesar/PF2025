@@ -158,5 +158,8 @@ width: 15px;
     .projet-title{
         font-size: 1.8rem;
     }
-
+   
+    .page-info-container{
+        background-color: white;
+    }
 }
