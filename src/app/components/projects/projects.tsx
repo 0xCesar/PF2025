@@ -209,6 +209,12 @@ export default function Projects() {
       window.addEventListener('touchmove', handleTouchMove, { passive: false });
       window.addEventListener('touchend', handleTouchEnd, { passive: true });
       window.addEventListener("keydown", handleKeyDown);
+      let arrowPrev = document.getElementById("prev-project");
+      let arrowNext = document.getElementById("next-project");
+
+      arrowPrev?.addEventListener("click", prevProjet);
+      arrowNext?.addEventListener("click", nextProjet);
+      
 
       return () => {
         window.removeEventListener("wheel", handleSceneWheel);
@@ -216,6 +222,8 @@ export default function Projects() {
         window.removeEventListener('touchmove', handleTouchMove);
         window.removeEventListener('touchend', handleTouchEnd);
         window.removeEventListener("keydown", handleKeyDown);
+        arrowNext?.removeEventListener("click", () => nextProjet());
+        arrowPrev?.removeEventListener("click", () => prevProjet());
       };
     }, []); 
   
