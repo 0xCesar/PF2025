@@ -11,6 +11,7 @@ import projects from "../../data/projects.json";
 import { useWebGLSupport } from '@/app/hook/useWebGLSupport';
 
 const texturePaths = projects.map(p => `/assets-projet/${p.ref?.replace(/^\/+/, '')}/img0.png`);
+const texturePathsMobile = projects.map(p => `/assets-projet/${p.ref?.replace(/^\/+/, '')}/thumbnail-mobile.png`);
 const linkPaths = projects.map(p => `/projets/${p.slug}`);
 interface ThreeSceneProps {
   nbPlane: number;
@@ -258,8 +259,16 @@ const getPlaneDimensions = (isMobile: boolean, refDim: DOMRect) => {
 
       // Create planes projects with textures
       for(let i = 0; i < nbPlane; i++){
-          const textureIndex = i % texturePaths.length; // Pour boucler si nbPlane > texturePaths.length
-          const texture = loader.load(texturePaths[textureIndex]);
+        let texture;
+          if(isMobile){
+          const textureIndex = i % texturePathsMobile.length; 
+           texture = loader.load(texturePathsMobile[textureIndex]);
+          }else{
+            const textureIndex = i % texturePaths.length; 
+           texture = loader.load(texturePaths[textureIndex]);
+        }
+          //const textureIndex = i % texturePaths.length; // Pour boucler si nbPlane > texturePaths.length
+          //const texture = loader.load(texturePaths[textureIndex]);
 
           const planeGeometry = new THREE.PlaneGeometry(planeWidth, planeHeight, 10, 10);
           const material = new THREE.MeshBasicMaterial({ map: texture, transparent: true });
@@ -357,8 +366,8 @@ const getPlaneDimensions = (isMobile: boolean, refDim: DOMRect) => {
                   if(displacement.context && displacement.canvas && displacement.texture){
                     
                      //displacement.context.globalCompositeOperation = 'source-over'
-                     displacement.context.fillRect(0, 0, displacement.canvas.width, displacement.canvas.height)
-                  displacement.texture.needsUpdate = true;
+                    displacement.context.fillRect(0, 0, displacement.canvas.width, displacement.canvas.height)
+                    displacement.texture.needsUpdate = true;
                 }
                     handleHoverChange(false);
          
