@@ -62,7 +62,8 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ nbPlane, currentIndex, imageLoa
   if (!planeHeight) return;
 
   planeRefs.current.forEach((plane, i) => {
-    const targetY = planeHeight * 1.2 * (i - currentIndex ) * -1;
+    const targetY = (planeHeight * 1.2 * (i - currentIndex ) * -1) + 50;
+    console.log(targetY);
     const shaderMaterial = plane.material as THREE.ShaderMaterial;
     shaderMaterial.uniforms.uProgress.value = 0.0;
 
@@ -166,9 +167,7 @@ const getPlaneDimensions = (isMobile: boolean, refDim: DOMRect) => {
       const width = containerRef.current?.offsetWidth ?? window.innerWidth;
       const height = containerRef.current?.offsetHeight ?? window.innerHeight;
       const extraHeight = height * 1.2;
-      if(isMobile){
-
-      }
+    
 
       // Camera setup : merging threejs w/ html
       const camera = new THREE.PerspectiveCamera( 70, width/height, 0.01, 2000 );
@@ -292,7 +291,7 @@ const getPlaneDimensions = (isMobile: boolean, refDim: DOMRect) => {
           const plane = new THREE.Mesh(planeGeometry, materialShader);
           if( i != 0 && planeHeight){
             plane.position.y = planeHeight * 1.2 * -i ;
-
+           
           }
           scene.add(plane);
           planeRefs.current[i] = plane;
@@ -326,7 +325,7 @@ const getPlaneDimensions = (isMobile: boolean, refDim: DOMRect) => {
               if(intersections.length > 0)
               { //console.log('je passe dedans');
    
-                                    handleHoverChange(true);
+                 handleHoverChange(true);
         
                  // console.log(intersections)
                   const uv = intersections[0].uv
@@ -426,7 +425,8 @@ const getPlaneDimensions = (isMobile: boolean, refDim: DOMRect) => {
 
               // Reposition according to new height
                  if(refImage && planeHeight){
-                    plane.position.y = i === 0 ? 0 : planeHeight * 1.2 * -i;
+                //    plane.position.y = i === 0 ? 0 : planeHeight * 1.2 * -i;
+                   //  plane.position.y = 0;  // Animer sympa ? 
                     plane.position.x = refImage?.getBoundingClientRect().left - width/2 + refImage?.getBoundingClientRect().width / 2;
                  }
 
