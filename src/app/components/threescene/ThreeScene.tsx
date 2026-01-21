@@ -62,7 +62,10 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ nbPlane, currentIndex, imageLoa
   if (!planeHeight) return;
 
   planeRefs.current.forEach((plane, i) => {
-    const targetY = (planeHeight * 1.2 * (i - currentIndex ) * -1) + 50;
+    let targetY = (planeHeight * 1.2 * (i - currentIndex ) * -1);
+    if(isMobile){
+      targetY += 100;
+    }
     console.log(targetY);
     const shaderMaterial = plane.material as THREE.ShaderMaterial;
     shaderMaterial.uniforms.uProgress.value = 0.0;
@@ -290,8 +293,8 @@ const getPlaneDimensions = (isMobile: boolean, refDim: DOMRect) => {
 
           const plane = new THREE.Mesh(planeGeometry, materialShader);
           if( i != 0 && planeHeight){
-            plane.position.y = planeHeight * 1.2 * -i ;
-           
+            // plane.position.y = planeHeight * 1.2 * -i ;
+           // plane.position.y = 100;
           }
           scene.add(plane);
           planeRefs.current[i] = plane;
